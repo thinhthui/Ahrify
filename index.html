@@ -475,7 +475,7 @@ async function play(a){
     audio.src = "https://ahrixthinh.xyz/" +last_dir + encodeURIComponent(name)
     $('#play_list div').removeAttr('style');
     $('#play_list div').eq(song_pos).css('animation', 'fade 2s ease infinite alternate')
-    document.querySelector('#play_list').scrollTop = document.querySelectorAll('#play_list div')[song_pos].clientHeight*(song_pos+1) - document.querySelector('#play_list').clientHeight
+    document.querySelector('#play_list').scrollTop = document.querySelectorAll('#play_list div')[song_pos].clientHeight*song_pos
     var cover = "https://ahrixthinh.xyz/Photos/default-cover.png"
 	if (last_dir == `Music/Inspira/` || last_dir == `Music/Voiced%20Out/`)  cover = "https://ahrixthinh.xyz/"+last_dir+"cover/" + encodeURIComponent(acc) + ".png";
     
@@ -530,7 +530,7 @@ async function play_temp(a){
     audio.src = "https://ahrixthinh.xyz/" + last_dir + encodeURIComponent(name)
     $('#play_list div').removeAttr('style');
     $('#play_list div').eq(song_pos).css('animation', 'fade 2s ease infinite alternate')
-    document.querySelector('#play_list').scrollTop = document.querySelectorAll('#play_list div')[song_pos].clientHeight*(song_pos+1) - document.querySelector('#play_list').clientHeight
+    document.querySelector('#play_list').scrollTop = document.querySelectorAll('#play_list div')[song_pos].clientHeight*song_pos
     var cover = null
 
     if (last_dir == `Music/Inspira/` || last_dir == `Music/Voiced%20Out/`)  cover = "https://ahrixthinh.xyz/"+last_dir+"cover/" + encodeURIComponent(acc) + ".png";
