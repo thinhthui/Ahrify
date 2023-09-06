@@ -1260,11 +1260,11 @@ button {
   60% {left: 0}
   70% {left: 0}
   90% {left: var(--scoll-title)}
-  100% {left: var(--scoll-title)}
+  100% {left: -var(--scoll-title)}
 }
 
 @keyframes move_album{
-  0% {right: var(--scoll-album)}
+  0% {right: -var(--scoll-album)}
   20% {right: 0}
   30% {right: 0}
   90% {right: 101%}
@@ -1272,7 +1272,7 @@ button {
 }
 
 @keyframes move_artist{
-  0% {right: var(--scoll-artist)}
+  0% {right: -var(--scoll-artist)}
   20% {right: 0}
   30% {right: 0}
   90% {right: 101%}
