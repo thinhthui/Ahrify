@@ -565,7 +565,7 @@ async function play_temp(a){
 function title_pos(){
 	$(".wrap-text").each(function(){
 		if($(this).width() <= $(this).children().width()){
-			root.style.setProperty('--scoll-title', $(this).children().width() + "px");
+			root.style.setProperty('--scoll-title', -$(this).children().width() + "px");
 			$(this).children().attr('style', 'animation: move_title 20s infinite linear;')
 		}else{
 			$(this).children().removeAttr('style')
@@ -573,7 +573,7 @@ function title_pos(){
 	})
 	$(".album").each(function(){
 		if($(this).width() >= $(this).parents().width()){
-			root.style.setProperty('--scoll-album', $(this).width() + "px");
+			root.style.setProperty('--scoll-album', -$(this).width() + "px");
 			$(this).attr('style', 'animation: move_album 20s infinite linear; right: auto')
 		}else{
 			$(this).removeAttr('style')
@@ -581,7 +581,7 @@ function title_pos(){
 	})
 	$(".artist").each(function(){
 		if($(this).width() >= $(this).parents().width()){
-			root.style.setProperty('--scoll-artist', $(this).width() + "px");
+			root.style.setProperty('--scoll-artist', -$(this).width() + "px");
 			$(this).attr('style', 'animation: move_artist 20s infinite linear; right: auto')
 		}else{
 			$(this).removeAttr('style')
@@ -1260,11 +1260,11 @@ button {
   60% {left: 0}
   70% {left: 0}
   90% {left: var(--scoll-title)}
-  100% {left: -var(--scoll-title)}
+  100% {left: var(--scoll-title)}
 }
 
 @keyframes move_album{
-  0% {right: -var(--scoll-album)}
+  0% {right: var(--scoll-album)}
   20% {right: 0}
   30% {right: 0}
   90% {right: 101%}
@@ -1272,7 +1272,7 @@ button {
 }
 
 @keyframes move_artist{
-  0% {right: -var(--scoll-artist)}
+  0% {right: var(--scoll-artist)}
   20% {right: 0}
   30% {right: 0}
   90% {right: 101%}
