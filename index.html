@@ -1,0 +1,1562 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <link rel="icon" href="blog/icon.jpg"/>
+    <meta name="og:title" content="AhriFy"/>
+    <meta name="og:description" content="Ahrixthinh.xyz's wrapper for music player cuz.. why not?"/>
+    <meta property="og:image" content="https://raw.githubusercontent.com/thinhthui/Music-Log/main/AhriFy-bg.jpg"/>
+	<meta property="og:url" content="http://ahrify.ahrixthinh.xyz/"/>
+    <meta name="twitter:card" content="summary_large_image"/>
+    <title>AhriFy</title>
+    
+    <link href="http://ahrixthinh.xyz/assets/fontello.css" rel="stylesheet" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.2.7/mediaelement-and-player.min.js" integrity="sha512-g+VjFTbRd3S5dc1ZkPt3l/rnF5O+5MwWiwqbaXxQQ71l6pxUq/NNRUE/6fz32Kkcl2okiv6FjAtoNQNe+7xOaw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.2.7/mediaelementplayer.min.css" integrity="sha512-RZKnkU75qu9jzuyC+OJGffPEsJKQa7oNARCA6/8hYsHk2sd7Sj89tUCWZ+mV4uAaUbuzay7xFZhq7RkKFtP4Dw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="assets/webkit-input-range-fill-lower.min.js"></script>
+    <link rel="stylesheet" href="http://ahrixthinh.xyz/assets/fontello.css">
+    
+
+    
+  </head>
+  <body>
+	<div id="cursor"></div>
+    
+    <div id="waiting">
+        <div id="waiting_loading"><i class="icon-spin5"></i></div>
+    </div>
+
+    <div id="preview">
+        <div id="photo"></div>
+        <div id="back_photo"></div>
+    </div>
+
+    <div id="panel">
+        <div id="main_panel">
+            <div style="display: flex; height: 50px;">
+                <button onclick="old_path()"><i class="fa fa-reply" aria-hidden="true" style="font-size: 20px;"></i></button>
+                <div>
+                    <button id="drop-down-button" onclick="drop_down()" style="width: 30px; font-family: 'Fontawesome'; box-sizing: border-box; border-style: groove groove none groove; border-color: rgba(61, 61, 61, 0.781);"><i class="fa-angle-double-down" aria-hidden="true" style="font-size: 18px; font-style: normal;"></i></button>
+                    <div id="drop-down"><div class="path_gui" onclick="path_gui(0)">Home</div></div>
+                </div>
+                <div id="path-panel">
+                    <div class="path_gui" onclick="path_gui(0)">Home</div>
+                </div>
+            </div>
+            <div id="main">
+                <div id="loading"><i class="icon-spin5"></i></div>
+                <div id="result"></div>
+            </div>
+        </div>
+
+        <div id="mobile_sub_panel" style="display: none;">
+            <div class="album-info">
+                <span class="album"></span><br>
+                <span class="artist"></span>
+            </div>
+            <div class="spin-disc"></div>
+            <div class="wrap-text">
+                <span class="aud-info">nothing has played yet</span>
+            </div>
+        </div>
+
+        <div id="sub_panel">
+            <button id="back_menu" onclick="back_menu()" style="font-size: 15px; display: none;"><i class="fa fa-reply" aria-hidden="true"></i></button>
+            <div id="cover">
+                <div id="front_cover"></div>
+                <div id="back_cover"></div>
+            </div>
+            <div id="play_list"></div>
+            <div class="contain" >
+                <div class="music-player">
+                    <div class="album-info">
+                        <span class="album"></span><br>
+                        <span class="artist"></span>
+                    </div>
+                    <div class="spin-disc"></div>
+                    <div class="wrap-text">
+                        <span class="aud-info">nothing has played yet</span>
+                    </div>
+                    <div class="btn">
+						<i class="fa fa-question" id="help_button" aria-hidden="true">
+                            <ul>
+                              <li>Space : play/pausa</li>
+                              <li>PageUp : previous song</li>
+                              <li>PageDown : next song</li>
+                              <li>/ : play mode</li>
+                              <li>M : mute</li>
+                              <li>‹ : volume down</li>
+                              <li>› : volume up</li>
+                              <li>Escape, BackClick : previous folder</li>
+                            </ul>
+                        </i>
+                        <div style="width: 150px; left: 0; right: 0; margin-left: auto; margin-right: auto; display: flex; justify-content: space-between; position: absolute; top: 53px">
+                            <button onclick="backward()" style="color: #aeaeae4d; background-color: transparent; border: none; width: fit-content; height: fit-content;"><i class="fa fa-backward"></i></button>
+							<button onclick="play_pause()" style="color: aliceblue; background-color: transparent; border: none; width: fit-content; height: fit-content; cursor: pointer;"><i class="fa fa-play"></i></button>
+                            <button onclick="forward()" style="color: #aeaeae4d; background-color: transparent; border: none; width: fit-content; height: fit-content;"><i class="fa fa-forward"></i></button>
+                        </div>
+                        <!-- volume -->
+                        <div id="volume-changer">
+                            <div id="volume-pc">
+                                <i class="fa fa-battery-full" aria-hidden="true" style="transform: rotate(-90deg); margin-bottom: 4px;"></i>
+                                <input type="range" min="0" max="1000" value="1000" id="slider">
+                            </div>
+                            <!-- still in develop -->
+                            <div id="volume-mobile" style="position: absolute; display: none;">     
+                                <div style="display: flex;">
+                                    <i class="fa-caret-up " aria-hidden="true"></i>
+                                    <i class="fa-caret-down " aria-hidden="true"></i>
+                                </div>
+                                <i class="fa fa-battery-full" aria-hidden="true" style="rotate: -90deg;"></i>
+                            </div>
+                            <!-- still in develop -->
+                        </div>
+                        <!-- volume -->
+                        <button id="auto-play" onclick="atp()"><i class="icon-autoplay-list">
+                          <ul>
+                            <li><i class="icon-level-down">Auto Play</i></li>
+                            <li><i class="icon-loop"></i>Loop Current Track</li>
+                            <li><i class="icon-loop-alt"></i>Loop Playlist</li>
+                          </ul>
+                        </i>
+                        </button>
+                    </div>
+                    <div class="lecteur">
+                        <audio class="fc-media" src="null" autoplay></audio>
+                    </div>
+                </div>
+        </div>
+        </div> 
+
+    </div>
+    
+  </body>
+
+<script>
+var isDoneFetch = 1;
+var path = "";
+var test;
+var folder = [];
+var files = [];
+var last_scroll = []
+var gui = [{
+    path: "",
+    folder: "Home",
+    last_scroll: 0,
+}];
+var last_dir;
+var test2;
+let root = document.documentElement;
+var elem, song_pos;
+
+//frontend
+window.addEventListener('load', set_width)
+window.addEventListener('resize', set_width)
+window.addEventListener('orientationchange', set_width)
+setTimeout(()=>{
+    $(".mejs__controls .mejs__volume-button").append($('.mejs__controls .mejs__horizontal-volume-slider'))
+    $(".mejs__controls .mejs__time").append($('.mejs__controls .mejs__playpause-button'))
+},100)
+function set_width(){
+    if (window.innerWidth > 800){
+        root.style.setProperty('--main-width', window.innerWidth/2 + "px");
+        root.style.setProperty('--main-height', window.innerHeight-57 + "px");
+        root.style.setProperty('--cover-height', window.innerHeight/2+ "px");
+        $("#sub_panel").css('height', window.innerHeight-2+"px")
+        $('#sub_panel').css('margin-left',`0`)
+        $('#main_panel').css('margin-left',`0`)
+        $('#mobile_sub_panel').css('margin-left',`0`)
+        root.style.setProperty('--path-width', (window.innerWidth/2 - 80)/6 + "px");
+    }else{
+        root.style.setProperty('--main-width', window.innerWidth + "px");
+        root.style.setProperty('--main-height', window.innerHeight - document.querySelector('#mobile_sub_panel').clientHeight + "px");
+        root.style.setProperty('--cover-height', document.querySelector('#cover').clientHeight + "px");
+        $('#sub_panel').css('margin-left',`105%`)
+        $('#main_panel').css('margin-left',`0`)
+        $('#mobile_sub_panel').css('margin-left',`0`)
+        root.style.setProperty('--path-width', (window.innerWidth - 80)/6 + "px");
+    }
+    
+}
+//frontend
+
+
+getUrlPara()
+window.addEventListener('load', fetch_folder)
+
+setTimeout(() => {
+  $("#waiting").css('opacity', '0%').css('pointer-events', 'none')
+  atp()
+}, 1000);
+
+history.pushState({first:1}, null, location.href);
+window.onpopstate = function () {
+    history.go(1);
+    if (path != "" && isDoneFetch == 1) old_path()
+};
+
+function getUrlPara(){
+    var urlpath = decodeURIComponent(document.location.search).replace('?path=', "")
+    for (var i = 0; i < urlpath.split('/').length - 1; i++){
+        var pathtemp =  urlpath.split('/')
+        pathtemp.splice(i+1, pathtemp.length - (i+2))
+        path_count(0, encodeURIComponent(pathtemp.join('/')), pathtemp[i])
+        root.style.setProperty('--drop-down-height', gui.length*40 + "px")
+    }
+    path = encodeURIComponent(urlpath)
+}
+
+function setUrlPara(){
+    window.history.replaceState({first:1}, null, "?path="+decodeURIComponent(path))
+}
+
+if (location.href == "http://ahrixthinh.xyz/") location.href = "http://ahrify.ahrixthinh.xyz/";
+
+function path_count(count, path, folder){
+    if (count == 0){
+        var data = {
+            path: path,
+            folder: folder,
+            last_scroll: document.querySelector('#result').scrollTop,
+        }
+        gui.push(data)
+    }else{
+        gui.pop()
+    }
+    $("#path-panel").html("")
+    $("#drop-down").html("")
+    var path_real_width = 0;
+    for (i = 0; i < gui.length; i++){
+        $("#path-panel").append(`<div class="path_gui" onclick="path_gui(`+i+`)">`+decodeURIComponent(gui[i].folder.replace('/',''))+`</div>`); 
+        $("#drop-down").append(`<div class="path_gui" onclick="path_gui(`+i+`)">`+decodeURIComponent(gui[i].folder.replace('/',''))+`</div>`);
+        path_real_width +=  $("#path-panel .path_gui").eq(i).width()
+    }
+    if (path_real_width > $("#path-panel").width()){
+        $("#path-panel").css('justify-content', 'flex-end')
+    }else{ $("#path-panel").css('justify-content', 'flex-start')}
+}
+
+
+function path_gui(i){
+    if (i+1 < gui.length){
+        var path_gui_fetch = gui[i].path
+        $('#result').css('display', 'none')
+        $('#loading').css('display', 'block')
+		$("#cursor").css('background-image', "url(assets/Cursors/loading.gif)")
+        document.querySelector('#result').innerHTML = "";
+        fetch(`https://ahrixthinh.xyz/~/api/file_list?uri="`+path_gui_fetch+`"&omit="c"`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+            },
+        }).then(response => response.json())
+        .then(data => {
+            folder = [];
+            files = [];
+            typesort(data.list);
+            folder = windowsort(folder)
+            folder_ob(folder);
+            files = windowsort(files);
+            files_ob(files);
+            $('#loading').css('display', 'none')
+            $('#result').css('display', 'block')
+			$("#cursor").css('background-image', "url(assets/Cursors/cursor.gif)")
+            document.querySelector('#result').scrollTop = gui[i+1].last_scroll
+            path = path_gui_fetch;
+            gui.splice(i+1)
+            last_scroll.splice(i)
+            $("#path-panel").html("")
+            $("#drop-down").html("")
+            var path_real_width = 0;
+            for (i = 0; i < gui.length; i++){
+                $("#path-panel").append(`<div class="path_gui" onclick="path_gui(`+i+`)">`+decodeURIComponent(gui[i].folder.replace('/',''))+`</div>`);
+                $("#drop-down").append(`<div class="path_gui" onclick="path_gui(`+i+`)">`+decodeURIComponent(gui[i].folder.replace('/',''))+`</div>`);
+                path_real_width +=  $("#path-panel .path_gui").eq(i).width()
+            }
+            if (path_real_width > $("#path-panel").width()){
+                $("#path-panel").css('justify-content', 'flex-end')
+            }else{ $("#path-panel").css('justify-content', 'flex-start')}
+            root.style.setProperty('--drop-down-height', gui.length*40 + "px")
+            setUrlPara()
+			visibilityScroll()
+        })
+    }
+}
+
+function drop_down(){
+    if ($("#drop-down").css('opacity') == 0){
+        $("#drop-down").css('opacity', '1').css('pointer-events', 'all').css('height', 'var(--drop-down-height)')
+    }else{
+        $("#drop-down").css('opacity', '0').css('pointer-events', 'none').css('height', 0 +'px')
+    }
+}
+$('body').click(()=>{
+    if ($("#drop-down").css('opacity') != 0) $("#drop-down").css('opacity', '0').css('pointer-events', 'none').css('height', 0 +'px');
+})
+
+
+
+
+function fetch_folder(scrollck){
+    $('#result').css('display', 'none')
+    $('#loading').css('display', 'block')
+	$("#cursor").css('background-image', "url(assets/Cursors/loading.gif)")
+    $("#path-panel").parent().css("pointer-events", "none")
+    isDoneFetch = 0;
+    document.querySelector('#result').innerHTML = "";
+    fetch(`https://ahrixthinh.xyz/~/api/file_list?uri="`+path+`"&omit="c"`, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+        },
+    }).then(response => response.json())
+    .then(data => {
+        folder = [];
+        files = [];
+        typesort(data.list);
+        folder = windowsort(folder)
+        folder_ob(folder);
+        files = windowsort(files);
+        files_ob(files);
+        $('#loading').css('display', 'none')
+        $('#result').css('display', 'block')
+		$("#cursor").css('background-image', "url(assets/Cursors/cursor.gif)")
+        $("#path-panel").parent().css("pointer-events", "all")
+        if (scrollck != null) document.querySelector('#result').scrollTop = last_scroll.pop()
+        isDoneFetch = 1
+        var path_real_width = 0;
+        for (i = 0; i < gui.length; i++){
+            path_real_width +=  $("#path-panel .path_gui").eq(i).width()
+        }
+        if (path_real_width > $("#path-panel").width()){
+            $("#path-panel").css('justify-content', 'flex-end')
+        }else{ $("#path-panel").css('justify-content', 'flex-start')}
+        setUrlPara()
+		visibilityScroll()
+    })
+}
+
+
+function typesort(arr){
+    for (var i = 0; i < arr.length; i++){
+        if (arr[i].n.lastIndexOf("/") > 0 ){
+            folder.push(arr[i])
+        }else{
+            files.push(arr[i])
+        }
+    }
+}
+
+function windowsort(arr){
+    return arr.sort((a, b) => a.n.localeCompare(b.n, navigator.languages[0] || navigator.language, {numeric: true, ignorePunctuation: true}))
+}
+
+function folder_ob(arr){
+    for (var i = 0; i < arr.length; i++){
+        $("#result").append(`<div class="folder" onclick='new_path(`+i+`)'><i class="fa fa-folder-open-o" aria-hidden="true" style="margin-right: 10px;"></i>`+arr[i].n.substring(0, arr[i].n.lastIndexOf('/'))+`</div>`); 
+    }
+}
+function files_ob(arr){
+    for (var i = 0; i < arr.length; i++){
+        var ext = arr[i].n.split(".")[arr[i].n.split(".").length - 1].trim();
+        if (["m4a","mp3","flac","wav","ogg", "aiff"].includes(ext)) {
+            $("#result").append(`<div class="files" onclick='play(`+i+`)'><i class="fa fa-file-audio-o" aria-hidden="true" style="margin-right: 10px;"></i>`+arr[i].n+`</div>`); 
+        }
+        if (["jpg","png","jpeg","jfif"].includes(ext.toLowerCase())) {
+            $("#result").append(`<div class="files" onclick='preview(`+i+`)'><i class="fa fa-picture-o" aria-hidden="true" style="margin-right: 10px;"></i>`+arr[i].n+`</div>`); 
+        }  
+    }
+}
+
+function new_path(a){
+    last_scroll.push(document.querySelector('#result').scrollTop)
+    path += encodeURIComponent(folder[a].n)
+    path_count(0, path, folder[a].n)
+    fetch_folder(null)
+    document.querySelector('#result').scrollTop = 0;
+    root.style.setProperty('--drop-down-height', gui.length*40 + "px")
+}
+function old_path(){
+    var acc = path.split('%2F')
+    acc.splice(-2,1)
+    path = acc.join('%2F')
+    if (gui.length > 1) path_count(1);
+    fetch_folder("nulln't")
+    root.style.setProperty('--drop-down-height', gui.length*40 + "px")
+}
+
+function back_menu(){
+    $('#sub_panel').css('margin-left',`105%`)
+    $('#main_panel').css('margin-left',`0`)
+    $('#mobile_sub_panel').css('margin-left',`0`)
+}
+
+function main_music_panel(){
+    $('#sub_panel').css('margin-left',`0`)
+    $('#main_panel').css('margin-left',`-105%`)
+    $('#mobile_sub_panel').css('margin-left',`-105%`)
+}
+
+document.querySelector('#mobile_sub_panel').addEventListener('touchstart', main_music_panel)
+
+$('#mobile_sub_panel').click(()=>{
+    $('#sub_panel').css('margin-left',`0`)
+    $('#main_panel').css('margin-left',`-105%`)
+    $('#mobile_sub_panel').css('margin-left',`-105%`)
+})
+
+function preview(a){
+    var name = files[a].n;
+    var cover = "https://ahrixthinh.xyz/" + path.replace(/\%2F/g, "/") + encodeURIComponent(name).replace(/\%2F/g, "/")
+    $('#preview #photo').attr('style',`background-image: url("`+cover+`")`)
+    $('#preview').css('display',`flex`).css('pointer-events', 'visible')
+}
+$('#preview').click(()=>{$('#preview').css('display',`none`).css('pointer-events', 'none')})
+$('#cover').click(()=>{
+    $('#preview #photo').attr('style',`background-image:` + $('#cover #front_cover').css('background-image'))
+    $('#preview').css('display',`flex`).css('pointer-events', 'visible')
+})
+
+//audio
+var aud = document.querySelector("audio.fc-media")
+
+$(document).on('keyup',function(e) {
+    if(e.key === ' ') play_pause();
+    if(e.key === 'PageUp') backward();
+    if(e.key === 'PageDown') forward();
+    if(e.key === '/') atp();
+    if(e.key === 'Escape') old_path();
+    if(e.key === 'm') VolumeOnOff();
+    if(e.key === 'F11'){
+      isFullscreen = !isFullscreen;
+      isFullscreen ? $("#top_bar").css('display', 'none') : $("#top_bar").css('display', 'flex');
+      set_width()
+    } 
+    
+})
+
+document.querySelector("#volume-pc").addEventListener('wheel', (e)=>{
+    if (e.deltaY > 0) volumedown();
+    if (e.deltaY < 0) volumeup();
+})
+
+
+$(document).on('keydown',function(e) {
+    if(e.key === 'ArrowLeft') aud.currentTime -= 1;
+    if(e.key === 'ArrowRight') aud.currentTime += 1;
+    if(e.key === ',') volumedown();
+    if(e.key === '.') volumeup();
+
+    if(e.key === 'Tab'){
+        $(this).focus();
+        e.preventDefault();
+    }
+})
+
+$(document).on('mouseup',function(e) {
+    if(e.which == 4) old_path()
+})
+
+var name2;
+async function play(a){
+    if (window.innerWidth <= 800) main_music_panel();
+    var audio = document.querySelector("audio");
+    var name = files[a].n;
+    var acc = name.split('.');
+        acc.splice(-1);
+        acc = acc.join('.');
+    elem = files;
+    list_append()
+    song_pos =  check_pos(acc);
+    last_dir = path.replace(/\%2F/g, "/");
+    audio.src = "https://ahrixthinh.xyz/" +last_dir + encodeURIComponent(name)
+    $('#play_list div').removeAttr('style');
+    $('#play_list div').eq(song_pos).css('animation', 'fade 2s ease infinite alternate')
+    document.querySelector('#play_list').scrollTop = document.querySelectorAll('#play_list div')[song_pos].clientHeight*(song_pos+1) - document.querySelector('#play_list').clientHeight
+    var cover = "https://ahrixthinh.xyz/Photos/default-cover.png"
+	if (last_dir == `Music/Inspira/` || last_dir == `Music/Voiced%20Out/`)  cover = "https://ahrixthinh.xyz/"+last_dir+"cover/" + encodeURIComponent(acc) + ".png";
+    
+	for (var i = 0; i < files.length; i++){
+        name2 = files[i].n;
+        var ext = name2.split(".")[name2.split(".").length - 1].trim()
+        if (["jpg","png","jpeg","jfif"].includes(ext.toLowerCase())){
+           cover = "https://ahrixthinh.xyz/" + last_dir + encodeURIComponent(name2);
+           if (name2 !== null && name2.toLowerCase().trim().includes("cover")) break;
+           if (name2 !== null && name2.toLowerCase().trim().includes("folder")) break;
+        }
+        
+    }
+    
+    
+
+    await fetch(`http://ahrixthinh.xyz:83`, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({path: decodeURIComponent(last_dir), file: name, cover: name2})
+    }).then(res => res.json())
+    .then(res => {
+        
+        if (res.title != null) acc = res.title;
+        if (res.picture != null) cover = res.picture;
+        $('.aud-info').html(acc)
+        if (res.album != null){$(".album-info .album").html(res.album)}else{$(".album-info .album").html("")}
+        if (res.artist != null){$(".album-info .artist").html(res.artist)}else{$(".album-info .artist").html("")}
+        $('.spin-disc').attr('style',`background-image: url("`+cover+`")`)
+        $('.spin-disc').ready(()=>{
+            $('#cover #front_cover').attr('style',`background-image: url("`+cover+`"); filter: drop-shadow(0 0 0.5rem rgba(0, 0, 0, 0.582))`)
+            $('#cover #back_cover').attr('style',`background-image: url("`+cover+`");`)
+        })
+        
+        
+    });
+    
+    title_pos();
+}
+
+async function play_temp(a){
+    var audio = document.querySelector("audio");
+    var name = elem[a].n;
+    var acc = name.split('.');
+        acc.splice(-1);
+        acc = acc.join('.');
+
+    song_pos =  check_pos(acc);
+    audio.src = "https://ahrixthinh.xyz/" + last_dir + encodeURIComponent(name)
+    $('#play_list div').removeAttr('style');
+    $('#play_list div').eq(song_pos).css('animation', 'fade 2s ease infinite alternate')
+    document.querySelector('#play_list').scrollTop = document.querySelectorAll('#play_list div')[song_pos].clientHeight*(song_pos+1) - document.querySelector('#play_list').clientHeight
+    var cover = null
+
+    if (last_dir == `Music/Inspira/` || last_dir == `Music/Voiced%20Out/`)  cover = "https://ahrixthinh.xyz/"+last_dir+"cover/" + encodeURIComponent(acc) + ".png";
+    
+    await fetch(`http://ahrixthinh.xyz:83`, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({path: decodeURIComponent(last_dir), file: name, cover: name2})
+    }).then(res => res.json())
+    .then(res => {
+        
+        if (res.title != null) acc = res.title;
+        if (res.picture != null) cover = res.picture;
+        $('.aud-info').html(acc)
+        if (res.album != null){$(".album-info .album").html(res.album)}else{$(".album-info .album").html("")}
+        if (res.artist != null){$(".album-info .artist").html(res.artist)}else{$(".album-info .artist").html("")}
+        if (cover != null){
+            $('.spin-disc').attr('style',`background-image: url("`+cover+`")`)
+            $('.spin-disc').ready(()=>{
+                $('#cover #front_cover').attr('style',`background-image: url("`+cover+`"); filter: drop-shadow(0 0 0.5rem rgba(0, 0, 0, 0.582))`)
+                $('#cover #back_cover').attr('style',`background-image: url("`+cover+`");`)
+            })
+        }
+    });
+	
+	title_pos();
+}
+
+function title_pos(){
+	$(".wrap-text").each(function(){
+		if($(this).width() < $(this).children().width()){
+			$(this).children().attr('style', 'animation: move 20s infinite linear;')
+		}else{
+			$(this).children().removeAttr('style')
+		}
+	})
+	$(".album").each(function(){
+		if($(this).width() > $(this).parents().width()){
+			$(this).attr('style', 'animation: move 20s infinite linear; right: auto')
+		}else{
+			$(this).removeAttr('style')
+		}
+	})
+	$(".artist").each(function(){
+		if($(this).width() > $(this).parents().width()){
+			$(this).attr('style', 'animation: move 20s infinite linear; right: auto')
+		}else{
+			$(this).removeAttr('style')
+		}
+	})
+}
+
+function backward(){
+  if (song_pos > 0){
+    song_pos -= 1;
+    $('#play_list div').eq(song_pos).click();
+    $(".btn button").eq(1).children().attr('class', 'fa fa-play')
+  }
+}
+
+function forward(){
+  if (song_pos < $('#play_list div').length - 1){
+    song_pos += 1;
+    $('#play_list div').eq(song_pos).click();
+    $(".btn button").eq(1).children().attr('class', 'fa fa-play')
+  }
+}
+
+function play_pause(){
+  if (aud.paused == true && aud.src.search("http://localhost:") == -1){
+    aud.play()
+    $(".btn button").eq(1).children().attr('class', 'fa fa-pause');
+  }else{
+    aud.pause()
+    $(".btn button").eq(1).children().attr('class', 'fa fa-play');
+  }
+}
+
+aud.onplay = ()=>{$(".btn button").eq(1).children().attr('class', 'fa fa-pause');}
+
+var atp_list = 4;
+function atp(){
+    atp_list += 1;
+    if (atp_list == 1 ) {
+        $("#auto-play").eq(0).css('color', 'white');
+        aud.onended = ()=> {$(".btn button").eq(1).children().attr('class', 'fa fa-play')
+		forward()};
+    }
+    if (atp_list == 2 ) {
+        $("#auto-play i").eq(0).attr('class', 'icon-loop');
+        aud.onended = ()=> {$(".btn button").eq(1).children().attr('class', 'fa fa-play')
+		aud.play()};
+    }
+    if (atp_list == 3 ) {
+        $("#auto-play i").eq(0).attr('class', 'icon-loop-alt');
+        aud.onended = ()=> {$(".btn button").eq(1).children().attr('class', 'fa fa-play')
+		loop_list()};
+    }
+    if (atp_list > 3){
+        atp_list = 0;
+        $("#auto-play i").eq(0).attr('class', 'icon-level-down');
+        $("#auto-play").eq(0).css('color', '#aeaeae4d');
+        aud.onended = ()=>{
+            console.log('ended')
+            $(".btn button").eq(1).children().attr('class', 'fa fa-play');
+        }
+    } 
+}
+
+function loop_list(){
+    $(".btn button").eq(1).children().attr('class', 'fa fa-play')
+    if (song_pos == $('#play_list div').length - 1){
+        song_pos = 0;
+        $('#play_list div').eq(song_pos).click();
+    }else{
+        forward();
+    }
+}
+
+function list_append(){
+    document.querySelector('#play_list').innerHTML = ""
+
+    for (var i = 0; i < elem.length; i++){
+        var name = elem[i].n;
+        var acc = name.split('.');
+        acc.splice(-1);
+        acc = acc.join('.');
+        var ext = name.split(".")[name.split(".").length - 1].trim();
+
+        var check = 0
+	    for ( check; check < elem.length; check++) {
+            if (elem[check].n == name) break;
+	    }
+
+        if (["m4a","mp3","flac","wav","ogg", "aiff"].includes(ext)) {
+            $("#play_list").append(`<div class='files' onclick='play_temp(`+check+`)'>`+acc+`</div>`); 
+        }
+    }
+}
+
+function check_pos(acc){
+    var check = 0;
+    for ( check; check < $('#play_list div').length; check++) {
+        if (acc == $('#play_list div').eq(check).text()) break;
+    }
+    console.log(check);
+    return check;
+}
+
+
+var audio = {    
+    init: function() {        
+    var $that = this;        
+        $(function() {            
+            $that.components.media();        
+        });    
+    },
+    components: {        
+        media: function(target) {            
+            var media = $("audio.fc-media", (target !== undefined) ? target : 'body');            
+            if (media.length) {     
+                media.mediaelementplayer({                    
+                    audioHeight: 10,
+                    features : ['current', 'duration', 'progress', 'tracks', 'fullscreen', 'next'],
+                    alwaysShowControls      : true,
+                    timeAndDurationSeparator: '<span></span>',
+                    iPadUseNativeControls: false,
+                    iPhoneUseNativeControls: false,
+                    AndroidUseNativeControls: false                
+                });            
+            }        
+        },
+            
+    },
+};
+audio.init();
+
+
+new WebkitInputRangeFillLower({
+        selectors: ['slider'],
+        color: 'aliceblue',
+})
+
+function volumedown(){
+    document.querySelector("#slider").value = Number(document.querySelector("#slider").value) - 20
+    $("style").eq($("style").length-2).html(`#slider::-webkit-slider-runnable-track{background-size: ${document.querySelector("#slider").value/10}% 100% !important }`)
+    setVolume()
+}
+
+function volumeup(){
+    document.querySelector("#slider").value = Number(document.querySelector("#slider").value) + 20
+    $("style").eq($("style").length-2).html(`#slider::-webkit-slider-runnable-track{background-size: ${document.querySelector("#slider").value/10}% 100% !important }`)
+    setVolume()
+}
+
+
+document.querySelector("#slider").addEventListener('input', ()=>{
+    setVolume()
+})
+
+
+
+function setVolume() {
+    $(".fc-media audio").prop("volume", document.querySelector("#slider").value/1000)
+    i = document.querySelector("#slider").value/1000
+    localStorage.setItem("volume", $(".fc-media audio").prop("volume"))
+    //console.log(i)
+    if (i == 1){
+        $("#volume-pc i").attr('class', 'fa-battery-full');
+    }else if(i > 0.5 && i <= 0.75){
+        $("#volume-pc i").attr('class', 'fa-battery-three-quarters');
+    }else if(i > 0.25 && i <= 0.5){
+        $("#volume-pc i").attr('class', 'fa-battery-half');
+    }else if(i > 0 && i <= 0.25){
+        $("#volume-pc i").attr('class', 'fa-battery-quarter');
+    }else if(i == 0){
+        $("#volume-pc i").attr('class', 'fa-battery-empty');
+    }
+    localStorage.setItem("volume-status", $("#volume-pc i").attr('class'))
+}
+
+var current_volume = 0.2;
+var current_volume_slider = 200;
+var current_volume_status = 'fa-battery-quarter';
+var current_volume_slider_webkit = `#slider::-webkit-slider-runnable-track{background-size: 20% 100% !important }`
+$("#volume-pc i").click(()=>{
+    VolumeOnOff()
+})
+
+function VolumeOnOff (){
+    if ($(".fc-media audio").prop("volume") != 0){
+        current_volume =  $(".fc-media audio").prop("volume")
+        current_volume_slider = document.querySelector("#slider").value
+        current_volume_status =  $("#volume-pc i").attr('class')
+        current_volume_slider_webkit =  $("style").eq($("style").length-2).html()
+        $(".fc-media audio").prop("volume", 0)
+        $("#volume-pc i").attr('class', 'fa-battery-empty');
+        document.querySelector("#slider").value = 0;
+        $("style").eq($("style").length-2).html(`#slider::-webkit-slider-runnable-track{background-size: 0% 100% !important }`)
+    }else{
+        $(".fc-media audio").prop("volume", current_volume)
+        $("#volume-pc i").attr('class', current_volume_status);
+        document.querySelector("#slider").value = current_volume_slider;
+        $("style").eq($("style").length-2).html(current_volume_slider_webkit)
+    }
+}
+
+setTimeout(()=>{
+    if (localStorage.getItem("volume") != null) {
+        current_volume = localStorage.getItem("volume");
+        current_volume_status = localStorage.getItem('volume-status')
+        current_volume_slider = localStorage.getItem("volume")*1000;
+        current_volume_slider_webkit = `#slider::-webkit-slider-runnable-track{background-size: ${current_volume_slider/10}% 100% !important }`
+    }
+    document.querySelector("#slider").value = current_volume_slider
+    $("style").eq($("style").length-2).html(current_volume_slider_webkit)
+    $("#volume-pc i").attr('class', current_volume_status)
+    $("audio").prop("volume", current_volume)
+},100)
+
+
+
+// visibility
+document.querySelector("#result").addEventListener('scroll', ()=>{visibilityScroll();})
+
+function visibilityScroll(){
+    var windowHeight = window.innerHeight;
+
+    if ( document.querySelectorAll('#result .files,#result .folder').length > 0) {
+            var visibility = document.querySelectorAll('#result .files, #result .folder');
+
+        for (var i = 0; i < visibility.length; i++) {
+
+            var thisvisibility = visibility[i],
+                visibilityHeight = thisvisibility.clientHeight,
+                visibilityClientRect = thisvisibility.getBoundingClientRect().top;
+
+        if ( visibilityClientRect <= ( (windowHeight) - (visibilityHeight*-2) ) && visibilityClientRect >= ( 0 - ( visibilityHeight*2) ) ) {
+            thisvisibility.style.opacity = 1;
+        } else {
+            thisvisibility.style = "";
+        }
+        }
+    }
+}
+
+// scroll
+
+
+var scrolleffect
+var scroll_direction = 100
+var scroll_count = []
+
+/*
+document.querySelector("#result").addEventListener('wheel', async (e)=>{
+    if (scroll_direction !== e.deltaY) {
+        for(i=0; i < scroll_count.length; i++){
+            window.clearInterval(scroll_count[i])
+        }
+        scroll_count = []
+    }
+    scroll_direction = e.deltaY
+    var timescroll = 0
+    var speed = Math.abs(e.deltaY)/166*4 + 4
+    var vec = Math.abs(e.deltaY)/166*0.1
+    var id = -1
+    
+    scrolleffect = setInterval(()=>{
+        if (id == -1) id = scrolleffect
+        else if (timescroll < 400 && speed >= 0){
+            speed -= vec
+        }else{
+            window.clearInterval(id)
+        }
+
+        if (e.deltaY < 0 && speed > 0 && document.getElementById("result").scrollTop > 0){
+            document.getElementById("result").scrollTop -= speed;
+        }else if (e.deltaY > 0 && speed > 0 && document.getElementById("result").scrollTop + $('#result').height() < document.getElementById("result").scrollHeight-10){
+            document.getElementById("result").scrollTop += speed;
+        }
+        
+        timescroll += 1
+    },10)
+    scroll_count.push(scrolleffect)
+});
+*/
+
+//cursor
+document.querySelector("html").addEventListener('mousemove', async (e)=>{
+    $("#cursor").css('top', e.clientY-5+"px").css('left', e.clientX-5+"px")
+})
+
+document.querySelector("html").addEventListener('scroll', async (e)=>{
+    $("#cursor").css('top', e.clientY-5+"px").css('left', e.clientX-5+"px")
+})
+
+document.querySelector("body").addEventListener('mouseover', async (e)=>{
+    $("#cursor").css('opacity', "1")
+})
+document.querySelector("body").addEventListener('mouseleave', async (e)=>{
+    $("#cursor").css('opacity', "0")
+})
+</script>
+
+<style>
+:root {
+    --main-width: 0;
+    --main-height: 0;
+    --auto-play-i: '\e802';
+    --cover-height: 0px;
+    --path-width : 0px;
+    --drop-down-height: 40px;
+}
+
+
+#cursor {
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    top: -100%;
+    display: none;
+    background-image: url(assets/Cursors/cursor.gif);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    pointer-events: none;
+    z-index: 11;
+}
+
+@font-face {
+    font-family: "umeboshi";
+    src: url(assets/tahoma.ttf) format('truetype');
+    
+}
+
+body {
+    background-image: url(assets/Images/AhriFy-bg-blur.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    height: 100vh;
+    margin: 0;
+    font-size: 18px;
+    overflow: hidden;
+    font-family: cursive;
+    letter-spacing: 1px;
+    user-select: none !important;
+}
+
+#waiting {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  opacity: 100%;
+  z-index: 10;
+  background-color: #000000;
+  transition: 0.5s;
+}
+
+#waiting_loading {
+  color: rgb(219, 219, 219);
+  font-size: 25px;
+  position: absolute;
+  width: fit-content;
+  height: fit-content;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  animation: spin 3s linear infinite;
+}
+
+#result .files, #result .folder{
+    color: rgb(219, 219, 219);
+    padding: 10px;
+    opacity: 0;
+    transition-property: opacity;
+    transition-duration: 0.25s;
+}
+
+#play_list .files{
+    color: rgb(219, 219, 219);
+    padding: 10px;
+    opacity: 1;
+    transition-property: opacity;
+    transition-duration: 0.25s;
+}
+
+.files:hover, .folder:hover{
+    background-color: rgba(5, 33, 56, 0.267);
+}
+
+#panel {
+    display: flex;
+    width: 100vw;
+}
+
+#main_panel {
+    width: var(--main-width);
+    height: var(--main-height);
+}
+
+#path-panel {
+    height: 50px; 
+    width: calc(100% - 80px); 
+    display: flex; 
+    white-space: nowrap; 
+    overflow: hidden;
+}
+
+#drop-down {
+    position: absolute;
+    height: var(--drop-down-height);
+    width: calc(100vw/2 - 50px);
+    background-image: url(assets/Images/bloom2.jpg);
+    background-size: cover;
+    background-position: center;
+    opacity: 0%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+    transition: 0.5s;
+}
+
+#path-panel .path_gui {
+    height: 50px;
+    width: fit-content;
+    font-size: 14px;
+    color: aliceblue;
+    display: flex;
+    align-items: center;
+}
+
+#drop-down .path_gui {
+    height: 40px;
+    min-width: 200px;
+    font-size: 14px;
+    padding: 0px 10px 0px;
+    color: rgb(34, 34, 34);
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+#path-panel .path_gui::after {
+    font-family: "Fontawesome";
+    margin: 0px 10px 0px;
+    content: '\f105';
+}
+#path-panel .path_gui:first-child {
+    margin-left: 10px;
+}
+
+.path_gui:hover {
+    background-color: #29292957;
+}
+
+#main {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border-style: groove;
+    border-color: rgba(61, 61, 61, 0.781);
+    box-sizing: border-box;
+    background: #00000045;
+}
+
+#result {
+    height: 100%;
+    word-wrap: break-word;
+    overflow: auto;
+}
+
+#loading {
+    color: rgb(219, 219, 219);
+    font-size: 25px;
+    width: fit-content;
+    height: fit-content;
+    margin: auto;
+    animation: spin 3s linear infinite;
+}
+
+#main_panel button {
+    width: 50px;
+    height: 50px;
+}
+button {
+    height: 80px;
+    border: transparent;
+    background: transparent;
+    color: aliceblue;
+}
+
+#sub_panel {
+    width: var(--main-width);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+#play_list {
+    height: 40%;
+    border-style: groove groove groove none;
+    border-color: rgba(61, 61, 61, 0.781);
+    overflow: auto;
+    background: #00000045;
+}
+
+
+#cover {
+    height: var(--cover-height);
+    width: inherit;
+}
+#front_cover {
+    width: inherit;
+    height: var(--cover-height);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    z-index: 1;
+}
+#back_cover {
+    width: calc(100% + 2px);
+    height: calc(var(--cover-height) + 1px);
+    background-size: cover;
+    background-position: center;
+    filter: blur(2px);
+}
+
+
+#preview {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    pointer-events: none;
+    display: none;
+}
+#preview #photo {
+    width: 80%;
+    height: 80%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+}
+#preview #back_photo {
+    width: 100%;
+    height: 100%;
+    background-color: #c0c0c05b;
+}
+
+.album {
+	position: absolute;
+	right: 0;
+}
+.artist {
+	position: absolute;
+	right: 0;
+}
+
+.album-info {
+    height: 50px;
+    width: 60%;
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+    color: #fff;
+    font-size: 15px;
+	overflow: hidden;
+	white-space: nowrap;
+}
+.spin-disc {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin: 6px;
+    background-size: cover;
+    position: absolute;
+    animation: spin 10s linear infinite;
+}
+#auto-play {
+    font-family: umeboshi;
+    color: #aeaeae4d;
+    position: absolute;
+    font-size: 17px;
+    bottom: 12px;
+    left: 150px;
+    height: fit-content;
+    width: fit-content;
+    z-index: 4;
+    transition: 1s;
+}
+
+
+.icon-autoplay-list:before { content: var(--auto-play-i); } 
+
+.wrap-text{
+    position: absolute;
+	left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    top: 5px;
+    width: 50%;
+    height: 60px;
+    background-color: transparent;
+    color: #fff;
+    overflow: hidden;
+    text-align: center;
+	white-space: nowrap;
+}
+
+.fa-wheelchair-alt{
+    color : var(--autoplay-color);
+	transition: 0.3s;
+}
+
+#help_button ul {
+    right: 0;
+    width: 300px;
+}
+#help_button ul li{
+    margin: 10px;
+    font-family: cursive;
+    font-size: 14px;
+}
+#help_button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 15px;
+    color: aliceblue;
+}
+
+.btn .fa {
+    font-size: 18px;
+}
+
+.btn i:first-child:hover ul {
+  opacity: 100%;
+}
+
+.btn ul {
+  position: absolute;
+  bottom: 10px;
+  padding: 0;
+  font-size: 15px;
+  width: 180px;
+  border-radius: 2px;
+  text-align: start;
+  background-color: #0000008a;
+  color: aliceblue;
+  backdrop-filter: blur(10px);
+  opacity: 0%;
+  transition: 0.5s;
+  pointer-events: none;
+}
+
+.btn ul li{
+  position: relative;
+  list-style: none;
+  margin-bottom: 10px;
+}
+
+.aud-info{
+    font-size: 15px;
+    position: absolute;
+	left: 0;
+	right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+}
+
+@keyframes move{
+  0% {transform: translateX(100%)}
+  40% {transform: translateX(0)}
+  50% {transform: translateX(0)}
+  100% {transform: translateX(-110%)}
+}
+
+@keyframes fade{
+    from{
+        background: transparent;}
+    to{
+        background: rgb(79 104 124 / 52%);}
+}
+
+@keyframes spin {
+  0% {
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  100% {
+    -moz-transform: rotate(359deg);
+    -o-transform: rotate(359deg);
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+
+button:hover, .fa-backward:hover, .fa-forward:hover{
+	color: #c5c9d6;
+}
+
+.music-player {
+    display: block;
+    width: 100%;
+    height: 150px;
+	border-style: none groove groove none;
+    border-color: rgba(61, 61, 61, 0.781);
+    backdrop-filter: blur(0px);
+    z-index: 1;
+    background: #00000045;
+}
+
+.lecteur {
+    position: absolute;
+    margin-top: 65px;
+    width: 100%;
+}
+
+.mejs__button>button:focus {
+    outline: 0px dotted #999;
+}
+
+.mejs__container {
+    width: 100% !important;
+    height: 100% !important;
+    background-color: transparent;
+    min-width: auto !important;
+}
+
+.mejs__controls {
+    background: transparent !important;
+    display: inline-block;
+    position: relative;
+    height: auto;
+}
+.mejs__controls div {
+    display: block;
+    float: left;
+    position: relative;
+}
+
+
+.mejs__controls .mejs__time {
+    width: 100%;
+    margin-bottom: 10px;
+    color: #fff;
+    height: auto;
+    padding: 0;
+    overflow: visible;
+    min-width: 100%;
+}
+.mejs__controls .mejs__time span {
+    font-size: 15px;
+}
+.mejs__controls span.mejs__duration {
+    float: right;
+    text-align: right;
+    color: #ccc;
+}
+.mejs__controls span.mejs__currenttime {
+    font-weight: 700;
+    float: left;
+}
+.mejs__controls .mejs__time-rail {
+    width: 100%;
+    margin: 0;
+    line-height: 0;
+    height: 20px;
+}
+.mejs__controls .mejs__time-rail span {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 4px;
+    border-radius: 50px;
+    
+}
+.mejs__controls .mejs__time-rail .mejs__time-loaded {
+    background: rgba(255,255,255,0.2);
+}
+.mejs__controls .mejs__time-rail .mejs__time-float {
+    display: none;
+    top: -40px;
+    width: 40px;
+    height: 25px;
+    margin-left: 0px;
+    text-align: center;
+    font-size: 10px;
+    background: #fff;
+    border: 0;
+}
+.mejs__controls .mejs__time-rail .mejs__time-float-current {
+    display: block;
+    position: relative;
+    top: 0;
+    margin: 0;
+    line-height: 26px;
+    color: #100d28;
+}
+.mejs__controls .mejs__time-rail .mejs__time-float-corner {
+    top: auto;
+    bottom: -9px;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-top: 6px solid #fff;
+    border-right: 6px solid transparent;
+    border-left: 6px solid transparent;
+}
+.mejs__controls .mejs__time-rail .mejs__time-current {
+    background: #d8dceb none repeat scroll 0 0;
+}
+.mejs__controls .mejs__time-handle {
+    display: none;
+}
+
+
+.cover img {
+    display: block;
+    position: absolute;
+    bottom: 110%;
+    left: 5%;
+    width: 90%;
+    margin: auto;
+    text-align: center;
+	box-shadow: 1px 10px 20px 5px #000000;
+	pointer-events: none;
+}
+
+
+::-webkit-scrollbar
+{
+width: 10px;  /* for vertical scrollbars */
+}
+::-webkit-scrollbar-track
+{
+background: transparent; /* Same color as background */
+}
+::-webkit-scrollbar-thumb
+{
+background: rgb(11 33 52 / 52%);
+border-radius: 10px;
+}
+
+
+#volume-changer i {
+    font-family: FontAwesome;
+    font-style: normal;
+    font-size: 20px;
+    color: aliceblue;
+}
+#volume-pc {
+    display: flex;
+    width: 135px;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 12px;
+    left: 5px;
+}
+
+#slider {
+  -webkit-appearance: none;
+  width: 100px;
+  height: 7px;
+  border-radius: 5px;
+  background: #3a3a3a;
+  outline: none;
+  opacity: 0.7;
+}
+#slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 0px;
+  height: 0px;
+}
+
+#slider::-moz-range-thumb {
+  width: 10px;
+  height: 10px;
+}
+input[type="range"]::-moz-range-progress {
+    border-radius : 5px;
+    height: 7px;
+}
+input[type="range"]::-webkit-slider-runnable-track  {
+    border-radius : 5px;
+    height: 7px;
+}
+
+
+
+
+
+@media screen and (max-width: 800px) {
+    #cursor {
+        display: none;
+    }
+
+    body {
+        font-size: 15px;
+        overflow-x: hidden;
+    }
+    #panel {
+        flex-direction: column;
+    }
+    #cover {
+        height: 50%;
+    }
+    #main {
+        height: calc(100% - 58px);
+    }
+
+    #drop-down {
+        width: calc(100vw - 50px);
+    }
+
+    .path_gui {
+        font-size: 10px;
+    }
+    #play_list {
+        border-style: groove groove groove groove;
+    }
+    #main_panel {
+        transition-property: margin-left;
+        transition-duration: 0.5s;
+    }
+    #back_menu {
+        display: block !important;
+    }
+    #sub_panel {
+        position: absolute;
+        height: 100%;
+        margin-left: 100%;
+        transition-property: margin-left;
+        transition-duration: 0.5s;
+    }
+    #auto-play {
+        left: 10px;
+    }
+    .music-player {
+        display: block;
+    }
+    #mobile_sub_panel {
+        display: flex !important;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 80px;
+        border-style: groove;
+        border-color: rgba(61, 61, 61, 0.781);
+        align-items: center;
+        transition-property: margin-left;
+        transition-duration: 0.5s;
+    }
+    #mobile_sub_panel .spin-disc {
+        width: 55px;
+        height: 55px; 
+    }
+    #mobile_sub_panel .wrap-text {
+        width: 65%;
+    }
+    #mobile_sub_panel .album-info {
+        width: 75%;
+    }
+    #mobile_sub_panel span {
+        font-size: 13px;
+    }
+    #volume-changer{
+        display: none;
+    }
+}
+</style>
+
+</html>
