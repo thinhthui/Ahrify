@@ -492,7 +492,7 @@ async function play(a){
     
     
 
-    await fetch(`http://ahrixthinh.xyz:83`, {
+    await fetch(`https://ahrixthinh.xyz:4000`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json, text/plain, */*',
@@ -535,7 +535,7 @@ async function play_temp(a){
 
     if (last_dir == `Music/Inspira/` || last_dir == `Music/Voiced%20Out/`)  cover = "https://ahrixthinh.xyz/"+last_dir+"cover/" + encodeURIComponent(acc) + ".png";
     
-    await fetch(`http://ahrixthinh.xyz:83`, {
+    await fetch(`https://ahrixthinh.xyz:4000`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json, text/plain, */*',
