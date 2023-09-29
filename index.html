@@ -312,7 +312,10 @@ function fetch_folder(scrollck){
         headers: {
             'Accept': 'application/json',
         },
-    }).then(response => response.json())
+    }).then(if (!response.ok) {
+        throw new Error(res.statusText);
+    }
+    response => response.json())
     .then(data => {
         folder = [];
         files = [];
@@ -336,7 +339,9 @@ function fetch_folder(scrollck){
         }else{ $("#path-panel").css('justify-content', 'flex-start')}
         setUrlPara()
 		visibilityScroll()
-    })
+    }).catch(error => {
+                    return Promise.reject()
+	})
 }
 
 
