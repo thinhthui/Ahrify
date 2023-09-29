@@ -312,10 +312,11 @@ function fetch_folder(scrollck){
         headers: {
             'Accept': 'application/json',
         },
-    }).then(if (!response.ok) {
-        throw new Error(res.statusText);
-    }
-    response => response.json())
+    }).then(response => {
+	    if (!response.ok) {
+	        throw new Error(res.statusText);
+	    }
+	    response.json()})
     .then(data => {
         folder = [];
         files = [];
