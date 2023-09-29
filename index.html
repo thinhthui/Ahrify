@@ -476,7 +476,7 @@ async function play(a){
     $('#play_list div').removeAttr('style');
     $('#play_list div').eq(song_pos).css('animation', 'fade 2s ease infinite alternate')
     document.querySelector('#play_list').scrollTop = document.querySelectorAll('#play_list div')[song_pos].clientHeight*song_pos
-    var cover = "https://ahrixthinh.net/Photos/default-cover.png"
+    var cover = "https://ahrixthinh.net/Photos/icon.jpg"
 	if (last_dir == `Music/Inspira/` || last_dir == `Music/Voiced%20Out/`)  cover = "https://ahrixthinh.net/"+last_dir+"cover/" + encodeURIComponent(acc) + ".png";
     
 	for (var i = 0; i < files.length; i++){
