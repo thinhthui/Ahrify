@@ -246,7 +246,7 @@ function path_gui(i){
         $('#loading').css('display', 'block')
 		$("#cursor").css('background-image', "url(assets/Cursors/loading.gif)")
         document.querySelector('#result').innerHTML = "";
-        fetch(`https://ahrixthinh.net/~/api/file_list?uri="`+path_gui_fetch+`"&omit="c"`, {
+        fetch(`https://ahrixthinh.net/~/api/get_file_list?uri="`+path_gui_fetch+`"&omit="c"`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -306,7 +306,7 @@ function fetch_folder(scrollck){
     $("#path-panel").parent().css("pointer-events", "none")
     isDoneFetch = 0;
     document.querySelector('#result').innerHTML = "";
-    fetch(`https://ahrixthinh.net/~/api/file_list?uri="`+path+`"&omit="c"`, {
+    fetch(`https://ahrixthinh.net/~/api/get_file_list?uri="`+path+`"&omit="c"`, {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
