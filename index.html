@@ -328,7 +328,8 @@ function fetch_folder(scrollck){
         $('#result').css('display', 'block')
 		$("#cursor").css('background-image', "url(assets/Cursors/cursor.gif)")
         $("#path-panel").parent().css("pointer-events", "all")
-        if (scrollck != null) document.querySelector('#result').scrollTop = last_scroll.pop()
+        if (scrollck != null) {document.querySelector('#result').scrollTop = last_scroll.pop()}
+	else{document.querySelector('#result').scrollTop = 0;}
         isDoneFetch = 1
         var path_real_width = 0;
         for (i = 0; i < gui.length; i++){
@@ -383,7 +384,7 @@ function new_path(a){
     path += encodeURIComponent(folder[a].n)
     path_count(0, path, folder[a].n)
     fetch_folder(null)
-    document.querySelector('#result').scrollTop = 0;
+    //document.querySelector('#result').scrollTop = 0;
     root.style.setProperty('--drop-down-height', gui.length*40 + "px")
 }
 function old_path(){
