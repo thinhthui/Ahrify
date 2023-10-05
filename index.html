@@ -706,7 +706,6 @@ function check_pos(acc){
     for ( check; check < $('#play_list div').length; check++) {
         if (acc == $('#play_list div').eq(check).text()) break;
     }
-    console.log(check);
     return check;
 }
 
@@ -927,7 +926,6 @@ fetch(`https://ahrixthinh.net/~/api/get_file_list?uri=%2Ftheme%2F`, {
 }).then(response => {
 	return response.json()})
 .then(data => {
-    console.log(data)
     for (var i = 0; i < data.list.length; i++){
         $("#wallpaper_content").append(`<div class="wallpaper" onclick="change_wallpaper(this)" style="background-image: url(https://ahrixthinh.net/theme/${data.list[i].n})"></div>`)
     }
