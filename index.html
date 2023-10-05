@@ -469,6 +469,7 @@ $(document).on('mouseup',function(e) {
 })
 
 var name2;
+var cover2;
 async function play(a){
     if (window.innerWidth <= 800) main_music_panel();
     var audio = document.querySelector("audio");
@@ -512,6 +513,7 @@ async function play(a){
         
         if (res.title != null) acc = res.title;
         if (res.picture != null) cover = res.picture;
+	cover2 = cover;
         $('.aud-info').html(acc)
         if (res.album != null){$(".album-info .album").html(res.album)}else{$(".album-info .album").html("")}
         if (res.artist != null){$(".album-info .artist").html(res.artist)}else{$(".album-info .artist").html("")}
@@ -558,13 +560,13 @@ async function play_temp(a){
         $('.aud-info').html(acc)
         if (res.album != null){$(".album-info .album").html(res.album)}else{$(".album-info .album").html("")}
         if (res.artist != null){$(".album-info .artist").html(res.artist)}else{$(".album-info .artist").html("")}
-        if (cover != null){
-            $('.spin-disc').attr('style',`background-image: url("`+cover+`")`)
-            $('.spin-disc').ready(()=>{
-                $('#cover #front_cover').attr('style',`background-image: url("`+cover+`"); filter: drop-shadow(0 0 0.5rem rgba(0, 0, 0, 0.582))`)
-                $('#cover #back_cover').attr('style',`background-image: url("`+cover+`");`)
-            })
-        }
+        if (cover == null) cover = cover2
+	    $('.spin-disc').attr('style',`background-image: url("`+cover+`")`)
+	    $('.spin-disc').ready(()=>{
+		$('#cover #front_cover').attr('style',`background-image: url("`+cover+`"); filter: drop-shadow(0 0 0.5rem rgba(0, 0, 0, 0.582))`)
+		$('#cover #back_cover').attr('style',`background-image: url("`+cover+`");`)
+	    })
+        
     });
 	
 	title_pos();
