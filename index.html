@@ -515,7 +515,7 @@ async function play(a){
         if (res.picture != null) cover = res.picture;
 	cover2 = cover;
         $('.aud-info').html(acc)
-        if (res.album != null){$(".album-info .album").html(res.album)}else{$(".album-info .album").html("")}
+        if (res.album != null && res.album != "undefined"){$(".album-info .album").html(res.album)}else{$(".album-info .album").html("")}
         if (res.artist != null){$(".album-info .artist").html(res.artist)}else{$(".album-info .artist").html("")}
         $('.spin-disc').attr('style',`background-image: url("`+cover+`")`)
         $('.spin-disc').ready(()=>{
@@ -558,7 +558,7 @@ async function play_temp(a){
         if (res.title != null) acc = res.title;
         if (res.picture != null) cover = res.picture;
         $('.aud-info').html(acc)
-        if (res.album != null){$(".album-info .album").html(res.album)}else{$(".album-info .album").html("")}
+        if (res.album != null && res.album != "undefined"){$(".album-info .album").html(res.album)}else{$(".album-info .album").html("")}
         if (res.artist != null){$(".album-info .artist").html(res.artist)}else{$(".album-info .artist").html("")}
         if (cover == null) cover = cover2
 	    $('.spin-disc').attr('style',`background-image: url("`+cover+`")`)
