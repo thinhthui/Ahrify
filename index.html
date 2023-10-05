@@ -11,7 +11,7 @@
     <meta name="twitter:card" content="summary_large_image"/>
     <title>AhriFy</title>
     
-    <link href="assets/fontello.css" rel="stylesheet" />
+    <link href="fontello.css" rel="stylesheet" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.2.7/mediaelement-and-player.min.js" integrity="sha512-g+VjFTbRd3S5dc1ZkPt3l/rnF5O+5MwWiwqbaXxQQ71l6pxUq/NNRUE/6fz32Kkcl2okiv6FjAtoNQNe+7xOaw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.2.7/mediaelementplayer.min.css" integrity="sha512-RZKnkU75qu9jzuyC+OJGffPEsJKQa7oNARCA6/8hYsHk2sd7Sj89tUCWZ+mV4uAaUbuzay7xFZhq7RkKFtP4Dw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -27,6 +27,16 @@
     
     <div id="waiting">
         <div id="waiting_loading"><i class="icon-spin5"></i></div>
+    </div>
+
+    <div id="wallpaper_panel">
+        <span>Background Wallpaper</span>
+        <div id="close"><i class="icon-cancel"></i></div>
+        <div id="wallpaper_content"></div>
+        <div style="width: 100%; position:absolute; bottom: 0; display: flex;">
+            <input type="text" id="myText" value="" style="height: 20px; width: -webkit-fill-available; color: aliceblue; background-color: rgba(51, 51, 51, 0.856); outline: none; border: none">
+            <div onclick="summit_wallpaper()" style="height: 20px; width: 30px; color: aliceblue; display: flex; align-items: center; justify-content: center;"><i class="fa fa-level-up" aria-hidden="true"></i></div>
+        </div>
     </div>
 
     <div id="preview">
@@ -81,6 +91,7 @@
                         <span class="aud-info">nothing has played yet</span>
                     </div>
                     <div class="btn">
+                        <div id="wallpaper"><i class="fa fa-camera-retro" aria-hidden="true"></i></div>
 						<i class="fa fa-question" id="help_button" aria-hidden="true">
                             <ul>
                               <li>Space : play/pausa</li>
@@ -153,6 +164,9 @@ let root = document.documentElement;
 var elem, song_pos;
 
 //frontend
+if (localStorage.getItem("wallpaper") != "") $("body").css("background-image", localStorage.getItem("wallpaper"))
+
+
 window.addEventListener('load', set_width)
 window.addEventListener('resize', set_width)
 window.addEventListener('orientationchange', set_width)
@@ -875,20 +889,64 @@ document.querySelector("#result").addEventListener('wheel', async (e)=>{
 */
 
 //cursor
-document.querySelector("html").addEventListener('mousemove', async (e)=>{
-    $("#cursor").css('top', e.clientY-5+"px").css('left', e.clientX-5+"px")
+// document.querySelector("html").addEventListener('mousemove', async (e)=>{
+//     $("#cursor").css('top', e.clientY-5+"px").css('left', e.clientX-5+"px")
+// })
+
+// document.querySelector("html").addEventListener('scroll', async (e)=>{
+//     $("#cursor").css('top', e.clientY-5+"px").css('left', e.clientX-5+"px")
+// })
+
+// document.querySelector("body").addEventListener('mouseover', async (e)=>{
+//     $("#cursor").css('opacity', "1")
+// })
+// document.querySelector("body").addEventListener('mouseleave', async (e)=>{
+//     $("#cursor").css('opacity', "0")
+// })
+
+
+//wallpaper
+
+$("#wallpaper").click(()=>{
+    if($("#wallpaper_panel").css("opacity") == 0){
+        $("#wallpaper_panel").css("opacity", "1").css("pointer-events", "all")
+    }else{
+        $("#wallpaper_panel").css("opacity", "0").css("pointer-events", "none")
+    }
 })
 
-document.querySelector("html").addEventListener('scroll', async (e)=>{
-    $("#cursor").css('top', e.clientY-5+"px").css('left', e.clientX-5+"px")
+$("#wallpaper_panel #close").click(()=>{
+    $("#wallpaper_panel").css("opacity", "0").css("pointer-events", "none")
 })
 
-document.querySelector("body").addEventListener('mouseover', async (e)=>{
-    $("#cursor").css('opacity', "1")
+fetch(`https://ahrixthinh.net:4000/file`, {
+        method: 'GET',
+}).then(res => res.json())
+.then(res => {
+    for (var i = 0; i < res.length; i++){
+        $("#wallpaper_content").append(`<div class="wallpaper" onclick="change_wallpaper(this)" style="background-image: url(http://ahrixthinh.net:83/theme/${res[i].title})"></div>`)
+    }
 })
-document.querySelector("body").addEventListener('mouseleave', async (e)=>{
-    $("#cursor").css('opacity', "0")
-})
+
+function change_wallpaper(e){
+    $("body").css("background-image", $(e).css("background-image"))
+    localStorage.setItem("wallpaper", $(e).css("background-image"));
+}
+
+function summit_wallpaper(){
+    if ($("#wallpaper_panel input").val().replace(/ /g, "") != ""){
+        $("body").css("background-image", `url(${$("#wallpaper_panel input").val()})`)
+        localStorage.setItem("wallpaper", `url(${$("#wallpaper_panel input").val()})`);
+        $("#wallpaper_panel input").val("")
+    }
+    
+}
+
+document.querySelector("#wallpaper_panel input").addEventListener("keyup", (e)=>{
+    if (e.code == "Enter") summit_wallpaper()
+});
+
+
 </script>
 
 <style>
@@ -931,6 +989,7 @@ body {
     background-attachment: fixed;
     background-repeat: no-repeat;
     height: 100vh;
+    width: 100vw;
     margin: 0;
     font-size: 18px;
     overflow: hidden;
@@ -1213,6 +1272,77 @@ button {
 	transition: 0.3s;
 }
 
+
+#wallpaper_panel {
+    position: absolute;
+    width: 70%;
+    height: 70%;
+    background-color: #3f3f3f96;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 6;
+    border-radius: 3px;
+    border-top: 30px solid rgba(26, 26, 26, 0.849);
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.5s;
+}
+
+#wallpaper_panel span {
+    color: aliceblue;
+    position: absolute;
+    font-size: 12px;
+    top: -25px;
+    left: 10px;
+}
+
+#wallpaper_panel #close {
+    color: aliceblue;
+    position: absolute;
+    top: -30px;
+    right: 0;
+    transition: 0.2s;
+}
+#wallpaper_panel #close:hover {
+    color: rgb(26, 26, 26);
+}
+
+#wallpaper {
+    position: absolute;
+    top: 3px;
+    right: 30px;
+    color: aliceblue;
+    transition: 0.2s;
+}
+
+#wallpaper .fa{
+    font-size: 13px;
+}
+
+#wallpaper:hover {
+    color: rgb(32, 32, 32);
+}
+
+#wallpaper_content {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    width: 100%;
+    height: 100%
+}
+
+.wallpaper {
+    height: 20%;
+    width: 20%;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 10px;
+}
+
 #help_button ul {
     right: 0;
     width: 300px;
@@ -1234,7 +1364,7 @@ button {
     font-size: 18px;
 }
 
-.btn i:first-child:hover ul {
+i:hover ul {
   opacity: 100%;
 }
 
