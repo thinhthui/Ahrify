@@ -919,12 +919,17 @@ $("#wallpaper_panel #close").click(()=>{
     $("#wallpaper_panel").css("opacity", "0").css("pointer-events", "none")
 })
 
-fetch(`https://ahrixthinh.net:4000/file`, {
+fetch(`https://ahrixthinh.net/~/api/get_file_list?uri=%2Ftheme%2F`, {
         method: 'GET',
-}).then(res => res.json())
-.then(res => {
-    for (var i = 0; i < res.length; i++){
-        $("#wallpaper_content").append(`<div class="wallpaper" onclick="change_wallpaper(this)" style="background-image: url(http://ahrixthinh.net:83/theme/${res[i].title})"></div>`)
+        headers: {
+            'Accept': 'application/json',
+        },
+}).then(response => {
+	return response.json()})
+.then(data => {
+    console.log(data)
+    for (var i = 0; i < data.list.length; i++){
+        $("#wallpaper_content").append(`<div class="wallpaper" onclick="change_wallpaper(this)" style="background-image: url(https://ahrixthinh.net/theme/${data.list[i].n})"></div>`)
     }
 })
 
