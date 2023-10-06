@@ -972,6 +972,9 @@ else{
         root.style.setProperty('--timerail-current', "#292a2d none repeat scroll 0 0 ");
         root.style.setProperty('--timerail-hover', "hsl(0deg 0% 68.65% / 50%) ");
 
+	root.style.setProperty('--frame--background', "#b8c0c552");
+
+	    
         $("#auto-play ul").css("color", "#292929").css("background-color", "#d5d5d5c4")
         
     }else{
@@ -985,6 +988,8 @@ else{
         root.style.setProperty('--timerail-total', "hsla(0,0%,100%,.3) ");
         root.style.setProperty('--timerail-current', "#d8dceb none repeat scroll 0 0 ");
         root.style.setProperty('--timerail-hover', "hsla(0,0%,100%,.5) ");
+
+	root.style.setProperty('--frame--background', "#0000005e");
         
 
         $("#auto-play ul").css("color", "aliceblue").css("background-color", "#0000008a")
@@ -1008,6 +1013,8 @@ $("#wallpaper_color").click(()=>{
         root.style.setProperty('--timerail-current', "#292a2d none repeat scroll 0 0 ");
         root.style.setProperty('--timerail-hover', "hsl(0deg 0% 68.65% / 50%) ");
 
+	root.style.setProperty('--frame--background', "#b8c0c552");
+
         $("#auto-play ul").css("color", "#292929").css("background-color", "#d5d5d5c4")
         localStorage.setItem("theme-color", "black")
     }else{
@@ -1021,6 +1028,8 @@ $("#wallpaper_color").click(()=>{
         root.style.setProperty('--timerail-total', "hsla(0,0%,100%,.3) ");
         root.style.setProperty('--timerail-current', "#d8dceb none repeat scroll 0 0 ");
         root.style.setProperty('--timerail-hover', "hsla(0,0%,100%,.5) ");
+
+	root.style.setProperty('--frame--background', "#0000005e");
 
         $("#auto-play ul").css("color", "aliceblue").css("background-color", "#0000008a")
         localStorage.setItem("theme-color", "white")
@@ -1062,6 +1071,7 @@ $("#wallpaper_center").click(()=>{
     --timerail-total: hsla(0,0%,100%,.3) ;
     --timerail-current: #d8dceb none repeat scroll 0 0 ;
     --timerail-hover: hsla(0,0%,100%,.5) ;
+    --frame--background: #0000005e;
 }
 
 .folder, .files, .aud-info, .album-info, .btn>i, #path-panel .path_gui, button, #left-right i, #volume-pc, .mejs__controls .mejs__time, .mejs__controls span.mejs__duration{
@@ -1225,7 +1235,7 @@ body {
     border-style: groove;
     border-color: var(--border-color);
     box-sizing: border-box;
-    background: #0000005e;
+    background: var(--frame--background);
 }
 
 #result {
@@ -1265,7 +1275,7 @@ button {
     border-style: groove groove groove none;
     border-color: var(--border-color);
     overflow: auto;
-    background: #0000005e;
+    background: var(--frame--background);
 }
 
 
@@ -1562,7 +1572,7 @@ button:hover, .fa-backward:hover, .fa-forward:hover{
     border-color: var(--border-color);
     backdrop-filter: blur(0px);
     z-index: 1;
-    background: #0000005e;
+    background: var(--frame--background);
 }
 
 .lecteur {
