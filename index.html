@@ -55,7 +55,7 @@
             <div style="display: flex; height: 50px;">
                 <button onclick="old_path()"><i class="fa fa-reply" aria-hidden="true" style="font-size: 20px;"></i></button>
                 <div>
-                    <button id="drop-down-button" onclick="drop_down()" style="width: 30px; font-family: 'Fontawesome'; box-sizing: border-box; border-style: groove groove none groove; border-color: rgba(61, 61, 61, 0.781);"><i class="fa-angle-double-down" aria-hidden="true" style="font-size: 18px; font-style: normal;"></i></button>
+                    <button id="drop-down-button" onclick="drop_down()" style="width: 30px; font-family: 'Fontawesome'; box-sizing: border-box; border-style: groove groove none groove; border-color: var(--border-color);"><i class="fa-angle-double-down" aria-hidden="true" style="font-size: 18px; font-style: normal;"></i></button>
                     <div id="drop-down"><div class="path_gui" onclick="path_gui(0)">Home</div></div>
                 </div>
                 <div id="path-panel">
@@ -1223,7 +1223,7 @@ body {
     flex-direction: column;
     height: calc(100% - 50px);
     border-style: groove;
-    border-color: var(--border-color)
+    border-color: var(--border-color);
     box-sizing: border-box;
     background: #0000005e;
 }
