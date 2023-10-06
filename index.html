@@ -11,7 +11,7 @@
     <meta name="twitter:card" content="summary_large_image"/>
     <title>AhriFy</title>
     
-    <link href="fontello.css" rel="stylesheet" />
+    
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.2.7/mediaelement-and-player.min.js" integrity="sha512-g+VjFTbRd3S5dc1ZkPt3l/rnF5O+5MwWiwqbaXxQQ71l6pxUq/NNRUE/6fz32Kkcl2okiv6FjAtoNQNe+7xOaw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.2.7/mediaelementplayer.min.css" integrity="sha512-RZKnkU75qu9jzuyC+OJGffPEsJKQa7oNARCA6/8hYsHk2sd7Sj89tUCWZ+mV4uAaUbuzay7xFZhq7RkKFtP4Dw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -31,7 +31,13 @@
 
     <div id="wallpaper_panel">
         <span>Background Wallpaper</span>
-        <div id="close"><i class="icon-cancel"></i></div>
+        <div style="display: flex; position: absolute; right: 0; top: -30px;">
+            <div id="wallpaper_left"><i class="icon-left-dir"></i></div>
+            <div id="wallpaper_center"><i class="icon-align-center"></i></div>
+            <div id="wallpaper_right"><i class="icon-right-dir"></i></div>
+            <div id="wallpaper_color"><i class="icon-color-adjust"></i></div>
+            <div id="close"><i class="icon-cancel"></i></div>
+        </div>
         <div id="wallpaper_content"></div>
         <div style="width: 100%; position:absolute; bottom: 0; display: flex;">
             <input type="text" id="myText" value="You can paste img url here" style="height: 20px; width: -webkit-fill-available; color: aliceblue; background-color: rgba(51, 51, 51, 0.856); outline: none; border: none">
@@ -164,7 +170,8 @@ let root = document.documentElement;
 var elem, song_pos;
 
 //frontend
-if (localStorage.getItem("wallpaper") != "") $("body").css("background-image", localStorage.getItem("wallpaper"))
+if (localStorage.getItem("wallpaper") != null) $("body").css("background-image", localStorage.getItem("wallpaper"))
+if (localStorage.getItem("background-position") != null) $("body").css("background-position",localStorage.getItem("background-position"))
 
 
 window.addEventListener('load', set_width)
@@ -738,7 +745,7 @@ var audio = {    
 audio.init();
 
 
-new WebkitInputRangeFillLower({
+const audio_slider = new WebkitInputRangeFillLower({
         selectors: ['slider'],
         color: 'aliceblue',
 })
@@ -949,6 +956,92 @@ document.querySelector("#wallpaper_panel input").addEventListener("keyup", (e)=>
     if (e.code == "Enter") summit_wallpaper()
 });
 
+if (localStorage.getItem("theme-color") == null) {localStorage.setItem("theme-color", "white")}
+else{
+    if(localStorage.getItem("theme-color") != "white"){
+        root.style.setProperty('--theme-color', "#1a1a1a");
+        root.style.setProperty('--invert', "invert(1)");
+        root.style.setProperty('--border-color', "rgb(209 209 209 / 78%)");
+        
+        $("#slider").css("background", "#7f7f7f")
+        audio_slider._options.color = "#1a1a1a"
+        
+        
+
+        root.style.setProperty('--timerail-total', "hsl(0deg 0% 0% / 30%) ");
+        root.style.setProperty('--timerail-current', "#292a2d none repeat scroll 0 0 ");
+        root.style.setProperty('--timerail-hover', "hsl(0deg 0% 68.65% / 50%) ");
+
+        $("#auto-play ul").css("color", "#292929").css("background-color", "#d5d5d5c4")
+        
+    }else{
+        root.style.setProperty('--theme-color', "#d2dbe3");
+        root.style.setProperty('--invert', "invert(0)");
+        root.style.setProperty('--border-color', "rgba(61, 61, 61, 0.781)");
+
+        $("#slider").css("background", "#3a3a3a")
+        audio_slider._options.color = "#d2dbe3"
+
+        root.style.setProperty('--timerail-total', "hsla(0,0%,100%,.3) ");
+        root.style.setProperty('--timerail-current', "#d8dceb none repeat scroll 0 0 ");
+        root.style.setProperty('--timerail-hover', "hsla(0,0%,100%,.5) ");
+        
+
+        $("#auto-play ul").css("color", "aliceblue").css("background-color", "#0000008a")
+        
+    }
+
+    audio_slider._addDefaultStyles()
+}
+
+$("#wallpaper_color").click(()=>{
+    
+    if(localStorage.getItem("theme-color") == "white"){
+        root.style.setProperty('--theme-color', "#1a1a1a");
+        root.style.setProperty('--invert', "invert(1)");
+        root.style.setProperty('--border-color', "rgb(209 209 209 / 78%)");
+        
+        $("#slider").css("background", "#7f7f7f")
+        audio_slider._options.color = "#1a1a1a"
+
+        root.style.setProperty('--timerail-total', "hsl(0deg 0% 0% / 30%) ");
+        root.style.setProperty('--timerail-current', "#292a2d none repeat scroll 0 0 ");
+        root.style.setProperty('--timerail-hover', "hsl(0deg 0% 68.65% / 50%) ");
+
+        $("#auto-play ul").css("color", "#292929").css("background-color", "#d5d5d5c4")
+        localStorage.setItem("theme-color", "black")
+    }else{
+        root.style.setProperty('--theme-color', "#d2dbe3");
+        root.style.setProperty('--invert', "invert(0)");
+        root.style.setProperty('--border-color', "rgba(61, 61, 61, 0.781)");
+
+        $("#slider").css("background", "#3a3a3a")
+        audio_slider._options.color = "#d2dbe3"
+
+        root.style.setProperty('--timerail-total', "hsla(0,0%,100%,.3) ");
+        root.style.setProperty('--timerail-current', "#d8dceb none repeat scroll 0 0 ");
+        root.style.setProperty('--timerail-hover', "hsla(0,0%,100%,.5) ");
+
+        $("#auto-play ul").css("color", "aliceblue").css("background-color", "#0000008a")
+        localStorage.setItem("theme-color", "white")
+    }
+
+    audio_slider._addDefaultStyles()
+})
+
+$("#wallpaper_left").click(()=>{
+    $("body").css("background-position", "left")
+    localStorage.setItem("background-position", "left")
+})
+$("#wallpaper_right").click(()=>{
+    $("body").css("background-position", "right")
+    localStorage.setItem("background-position", "right")
+})
+$("#wallpaper_center").click(()=>{
+    $("body").css("background-position", "center")
+    localStorage.setItem("background-position", "center")
+})
+
 
 </script>
 
@@ -960,9 +1053,23 @@ document.querySelector("#wallpaper_panel input").addEventListener("keyup", (e)=>
     --cover-height: 0px;
     --path-width : 0px;
     --drop-down-height: 40px;
-	--scoll-title: 0;
-	--scoll-album: 0;
-	--scoll-artist: 0;
+    --scoll-title: 0;
+    --scoll-album: 0;
+    --scoll-artist: 0;
+    --theme-color: #d2dbe3;
+    --invert: invert(0);
+    --border-color: rgba(61, 61, 61, 0.781);
+    --timerail-total: hsla(0,0%,100%,.3) ;
+    --timerail-current: #d8dceb none repeat scroll 0 0 ;
+    --timerail-hover: hsla(0,0%,100%,.5) ;
+}
+
+.folder, .files, .aud-info, .album-info, .btn>i, #path-panel .path_gui, button, #left-right i, #volume-pc, .mejs__controls .mejs__time, .mejs__controls span.mejs__duration{
+    color: var(--theme-color);
+}
+
+#wallpaper i, #auto-play, #drop-down{
+    filter: var(--invert);
 }
 
 
@@ -1026,7 +1133,7 @@ body {
 }
 
 #result .files, #result .folder{
-    color: rgb(219, 219, 219);
+    
     padding: 10px;
     opacity: 0;
     transition-property: opacity;
@@ -1034,7 +1141,7 @@ body {
 }
 
 #play_list .files{
-    color: rgb(219, 219, 219);
+    
     padding: 10px;
     opacity: 1;
     transition-property: opacity;
@@ -1082,7 +1189,7 @@ body {
     height: 50px;
     width: fit-content;
     font-size: 14px;
-    color: aliceblue;
+    
     display: flex;
     align-items: center;
 }
@@ -1224,7 +1331,7 @@ button {
     position: absolute;
     bottom: 0;
     right: 10px;
-    color: #fff;
+    
     font-size: 15px;
 	overflow: hidden;
 	white-space: nowrap;
@@ -1304,27 +1411,25 @@ button {
     left: 10px;
 }
 
-#wallpaper_panel #close {
+#wallpaper_panel #close, #wallpaper_panel #wallpaper_left, #wallpaper_panel #wallpaper_right, #wallpaper_panel #wallpaper_center, #wallpaper_panel #wallpaper_color {
     color: aliceblue;
-    position: absolute;
-    top: -30px;
-    right: 0;
     transition: 0.2s;
+    margin-left: 10px;
 }
-#wallpaper_panel #close:hover {
-    color: rgb(26, 26, 26);
+#wallpaper_panel #close:hover , #wallpaper_panel #wallpaper_left:hover, #wallpaper_panel #wallpaper_right:hover, #wallpaper_panel #wallpaper_center:hover, #wallpaper_panel #wallpaper_color:hover{
+    color: rgba(105, 105, 105, 0.678);
 }
 
 #wallpaper {
     position: absolute;
     top: 3px;
     right: 30px;
-    color: aliceblue;
-    transition: 0.2s;
 }
 
-#wallpaper .fa{
+#wallpaper i{
+    color: aliceblue;
     font-size: 13px;
+    transition: 0.2s;
 }
 
 #wallpaper:hover {
@@ -1362,7 +1467,6 @@ button {
     top: 10px;
     right: 10px;
     font-size: 15px;
-    color: aliceblue;
 }
 
 .btn .fa {
@@ -1495,7 +1599,7 @@ button:hover, .fa-backward:hover, .fa-forward:hover{
 .mejs__controls .mejs__time {
     width: 100%;
     margin-bottom: 10px;
-    color: #fff;
+
     height: auto;
     padding: 0;
     overflow: visible;
@@ -1507,7 +1611,7 @@ button:hover, .fa-backward:hover, .fa-forward:hover{
 .mejs__controls span.mejs__duration {
     float: right;
     text-align: right;
-    color: #ccc;
+    opacity: 0.7;
 }
 .mejs__controls span.mejs__currenttime {
     font-weight: 700;
@@ -1560,10 +1664,17 @@ button:hover, .fa-backward:hover, .fa-forward:hover{
     border-left: 6px solid transparent;
 }
 .mejs__controls .mejs__time-rail .mejs__time-current {
-    background: #d8dceb none repeat scroll 0 0;
+    background: var(--timerail-current) !important;
+}
+
+.mejs__time-hovered.no-hover {
+    background: var(--timerail-hover) !important;
 }
 .mejs__controls .mejs__time-handle {
     display: none;
+}
+.mejs__time-total {
+    background: var(--timerail-total) !important;
 }
 
 
