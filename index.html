@@ -110,7 +110,7 @@
                               <li>Escape, BackClick : previous folder</li>
                             </ul>
                         </i>
-                        <div id="left-right" style="width: 150px; left: 0; right: 0; margin-left: auto; margin-right: auto; display: flex; justify-content: space-between; position: absolute; top: 53px">
+                        <div id="left-right" style="width: 150px; left: 0; right: 0; margin-left: auto; margin-right: auto; display: flex; justify-content: space-between; position: absolute; top: 53px; z-index: 4">
                             <button onclick="backward()" style="color: #aeaeae60; background-color: transparent; border: none; width: fit-content; height: fit-content;"><i class="fa fa-backward" style="transition: 0.2s;"></i></button>
 			    <button onclick="play_pause()" style="color: aliceblue; background-color: transparent; border: none; width: fit-content; height: fit-content; cursor: pointer;"><i class="fa fa-play"></i></button>
                             <button onclick="forward()" style="color: #aeaeae60; background-color: transparent; border: none; width: fit-content; height: fit-content;"><i class="fa fa-forward" style="transition: 0.2s;"></i></button>
@@ -1238,6 +1238,8 @@ body {
     border-color: var(--border-color);
     box-sizing: border-box;
     background: var(--frame--background);
+    transition-property: background, border-color;
+    transition-duration: 0.2s;
 }
 
 #result {
@@ -1280,6 +1282,8 @@ button {
     border-color: var(--border-color);
     overflow: auto;
     background: var(--frame--background);
+    transition-property: background, border-color;
+    transition-duration: 0.2s;
 }
 
 
@@ -1577,6 +1581,8 @@ i:hover ul {
     backdrop-filter: blur(0px);
     z-index: 1;
     background: var(--frame--background);
+    transition-property: background, border-color;
+    transition-duration: 0.2s;
 }
 
 .lecteur {
@@ -1831,7 +1837,7 @@ input[type="range"]::-webkit-slider-runnable-track  {
         border-style: groove;
         border-color: var(--border-color);
         align-items: center;
-        transition-property: margin-left;
+        transition-property: margin-left,background, border-color;
         transition-duration: 0.5s;
     }
     #mobile_sub_panel .spin-disc {
