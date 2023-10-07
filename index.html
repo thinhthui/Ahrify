@@ -111,9 +111,9 @@
                             </ul>
                         </i>
                         <div id="left-right" style="width: 150px; left: 0; right: 0; margin-left: auto; margin-right: auto; display: flex; justify-content: space-between; position: absolute; top: 53px">
-                            <button onclick="backward()" style="color: #aeaeae4d; background-color: transparent; border: none; width: fit-content; height: fit-content;"><i class="fa fa-backward"></i></button>
-							<button onclick="play_pause()" style="color: aliceblue; background-color: transparent; border: none; width: fit-content; height: fit-content; cursor: pointer;"><i class="fa fa-play"></i></button>
-                            <button onclick="forward()" style="color: #aeaeae4d; background-color: transparent; border: none; width: fit-content; height: fit-content;"><i class="fa fa-forward"></i></button>
+                            <button onclick="backward()" style="color: #aeaeae60; background-color: transparent; border: none; width: fit-content; height: fit-content;"><i class="fa fa-backward" style="transition: 0.2s;"></i></button>
+			    <button onclick="play_pause()" style="color: aliceblue; background-color: transparent; border: none; width: fit-content; height: fit-content; cursor: pointer;"><i class="fa fa-play"></i></button>
+                            <button onclick="forward()" style="color: #aeaeae60; background-color: transparent; border: none; width: fit-content; height: fit-content;"><i class="fa fa-forward" style="transition: 0.2s;"></i></button>
                         </div>
                         <!-- volume -->
                         <div id="volume-changer">
@@ -1075,11 +1075,11 @@ $("#wallpaper_center").click(()=>{
     --frame--background: #0000005e;
 }
 
-.folder, .files, .aud-info, .album-info, .btn>i, #path-panel .path_gui, button, #left-right i, #volume-pc, .mejs__controls .mejs__time, .mejs__controls span.mejs__duration{
+.folder, .files, .aud-info, .album-info, .btn>i, #path-panel .path_gui, #volume-pc, .mejs__controls .mejs__time, .mejs__controls span.mejs__duration{
     color: var(--theme-color);
 }
 
-#wallpaper i, #auto-play, #drop-down{
+#wallpaper i, #auto-play, #drop-down, #panel button, .fa-backward, .fa-forward{
     filter: var(--invert);
 }
 
@@ -1561,8 +1561,8 @@ i:hover ul {
   }
 }
 
-button:hover, .fa-backward:hover, .fa-forward:hover{
-	color: #c5c9d6;
+#main_panel button:hover, .fa-backward:hover, .fa-forward:hover{
+	color: #7d7d7d !important;
 }
 
 .music-player {
