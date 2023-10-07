@@ -169,6 +169,7 @@ var test2;
 let root = document.documentElement;
 var elem, song_pos;
 
+const collator = new Intl.Collator(undefined, {numeric: true, sensitivity: 'base'});
 //frontend
 if (localStorage.getItem("wallpaper") != null) $("body").css("background-image", localStorage.getItem("wallpaper"))
 if (localStorage.getItem("background-position") != null) $("body").css("background-position",localStorage.getItem("background-position"))
@@ -380,7 +381,7 @@ function typesort(arr){
 }
 
 function windowsort(arr){
-    return arr.sort((a, b) => a.n.localeCompare(b.n, navigator.languages[0] || navigator.language, {numeric: true, ignorePunctuation: false}))
+    return arr.sort((a, b) => collator.compare(a.n.replace("/", ""), b.n.replace("/", "")))
 }
 
 function folder_ob(arr){
