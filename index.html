@@ -508,7 +508,9 @@ async function play(a){
     $('#play_list div').eq(song_pos).css('animation', 'fade 2s ease infinite alternate')
 	
     if($("#play_list div").eq(song_pos).offset().top - $("#back_cover").height() < 0 || $("#play_list div").eq(song_pos).offset().top - $("#back_cover").height() > $("#play_list").height() - 30) {
-        for (var i = 0; i < song_pos; i++) document.querySelector('#play_list').scrollTop += document.querySelectorAll('#play_list div')[i].clientHeight
+	var temp = 0
+        for (var i = 0; i < song_pos; i++) temp += document.querySelectorAll('#play_list div')[i].clientHeight
+	document.querySelector('#play_list').scrollTop = temp
     }
 	
     var cover = "https://ahrixthinh.net/Photos/icon.jpg"
@@ -568,7 +570,9 @@ async function play_temp(a){
     $('#play_list div').eq(song_pos).css('animation', 'fade 2s ease infinite alternate')
     
     if($("#play_list div").eq(song_pos).offset().top - $("#back_cover").height() < 0 || $("#play_list div").eq(song_pos).offset().top - $("#back_cover").height() > $("#play_list").height() - 30) {
-        for (var i = 0; i < song_pos; i++) document.querySelector('#play_list').scrollTop += document.querySelectorAll('#play_list div')[i].clientHeight
+	var temp = 0
+        for (var i = 0; i < song_pos; i++) temp += document.querySelectorAll('#play_list div')[i].clientHeight
+	document.querySelector('#play_list').scrollTop = temp
     }
 	
     var cover = null
