@@ -509,7 +509,7 @@ async function play(a){
 	
     if($("#play_list div").eq(song_pos).offset().top - $("#back_cover").height() < 0 || $("#play_list div").eq(song_pos).offset().top - $("#back_cover").height() > $("#play_list").height() - 30) {
 	var temp = 0
-        for (var i = 0; i < song_pos; i++) temp += document.querySelectorAll('#play_list div')[i].clientHeight
+        for (var i = 0; i < song_pos - 1; i++) temp += document.querySelectorAll('#play_list div')[i].clientHeight
 	document.querySelector('#play_list').scrollTop = temp
     }
 	
@@ -571,7 +571,7 @@ async function play_temp(a){
     
     if($("#play_list div").eq(song_pos).offset().top - $("#back_cover").height() < 0 || $("#play_list div").eq(song_pos).offset().top - $("#back_cover").height() > $("#play_list").height() - 30) {
 	var temp = 0
-        for (var i = 0; i < song_pos; i++) temp += document.querySelectorAll('#play_list div')[i].clientHeight
+        for (var i = 0; i < song_pos - 1; i++) temp += document.querySelectorAll('#play_list div')[i].clientHeight
 	document.querySelector('#play_list').scrollTop = temp
     }
 	
