@@ -506,7 +506,7 @@ async function play(a){
     audio.src = "https://ahrixthinh.net/" +last_dir + encodeURIComponent(name)
     $('#play_list div').removeAttr('style');
     $('#play_list div').eq(song_pos).css('animation', 'fade 2s ease infinite alternate')
-    document.querySelector('#play_list').scrollTop = document.querySelectorAll('#play_list div')[song_pos].clientHeight*song_pos
+    if($("#play_list div").eq(song_pos).offset().top - $("#back_cover").height() < 0 || $("#play_list div").eq(song_pos).offset().top - $("#back_cover").height() > $("#play_list").height()) document.querySelector('#play_list').scrollTop = document.querySelectorAll('#play_list div')[song_pos].clientHeight*song_pos
     var cover = "https://ahrixthinh.net/Photos/icon.jpg"
 	if (last_dir == `Music/Inspira/` || last_dir == `Music/Voiced%20Out/`)  cover = "https://ahrixthinh.net/"+last_dir+"cover/" + encodeURIComponent(acc) + ".png";
     
@@ -562,7 +562,7 @@ async function play_temp(a){
     audio.src = "https://ahrixthinh.net/" + last_dir + encodeURIComponent(name)
     $('#play_list div').removeAttr('style');
     $('#play_list div').eq(song_pos).css('animation', 'fade 2s ease infinite alternate')
-    document.querySelector('#play_list').scrollTop = document.querySelectorAll('#play_list div')[song_pos].clientHeight*song_pos
+    if($("#play_list div").eq(song_pos).offset().top - $("#back_cover").height() < 0 || $("#play_list div").eq(song_pos).offset().top - $("#back_cover").height() > $("#play_list").height()) document.querySelector('#play_list').scrollTop = document.querySelectorAll('#play_list div')[song_pos].clientHeight*song_pos
     var cover = null
 
     if (last_dir == `Music/Inspira/` || last_dir == `Music/Voiced%20Out/`)  cover = "https://ahrixthinh.net/"+last_dir+"cover/" + encodeURIComponent(acc) + ".png";
@@ -1053,8 +1053,6 @@ $("#wallpaper_center").click(()=>{
 })
 
 //
-
-  !function(a){a.fn.isOnScreen=function(b){var c=this.outerHeight(),d=this.outerWidth();if(!d||!c)return!1;var e=a("#play_list"),f={top:document.querySelector('#play_list').scrollTop,left:document.querySelector('#play_list').scrollLeft};f.right=f.left+e.width(),f.bottom=f.top+e.height();var g=this.offset();g.right=g.left+d-$("#main").width(),g.bottom=g.top+c-$("#back_cover").height();var h={top:f.bottom-(g.top-$("#back_cover").height()),left:f.right-(g.left-$("#main").width()),bottom:g.bottom-f.top,right:g.right-f.left};return"function"==typeof b?b.call(this,h):h.top>0&&h.bottom>0}}(jQuery);
 
 </script>
 
