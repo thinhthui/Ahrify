@@ -610,7 +610,7 @@ function title_pos(){
 	$(".wrap-text").each(function(){
 		if($(this).width() <= $(this).children().width()){
 			root.style.setProperty('--scoll-title', -($(this).children().width() + 10) + "px");
-			$(this).children().attr('style', 'animation: move_title 20s infinite linear;')
+			$(this).children().attr('style', 'animation: move_title 20s infinite linear; right: auto')
 		}else{
 			$(this).children().removeAttr('style')
 		}
