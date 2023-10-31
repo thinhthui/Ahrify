@@ -17,6 +17,7 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.2.7/mediaelementplayer.min.css" integrity="sha512-RZKnkU75qu9jzuyC+OJGffPEsJKQa7oNARCA6/8hYsHk2sd7Sj89tUCWZ+mV4uAaUbuzay7xFZhq7RkKFtP4Dw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="assets/webkit-input-range-fill-lower.min.js"></script>
+    <script src="assets/fuse.js"></script>
     <link rel="stylesheet" href="assets/fontello.css">
     
 
@@ -61,8 +62,14 @@
                 <div id="path-panel">
                     <div class="path_gui" onclick="path_gui(0)">Home</div>
                 </div>
+
+		<button id="search" onclick="search_show()" style="width: 30px; font-family: 'Fontawesome'; box-sizing: border-box; border-style: groove groove none groove; border-color: var(--border-color);"><i class="fa fa-search" aria-hidden="true" style="font-size: 18px; font-style: normal;"></i></button>
             </div>
             <div id="main">
+		<div id="search_panel" style="height: 100%; width: 100%; position: absolute; left: 0; right: 0; margin: auto; background-color: #161718c0; backdrop-filter: blur(0px); opacity: 0; pointer-events: none; transition: 0.25s;">
+                    <input type="text" id="search_value" value="" style="height: 10px; width: 90%; color: aliceblue; background-color: rgb(7 7 8 / 56%); outline: none; border: none; border-radius: 4px; padding: 10px; position: absolute; right: 0; left: 0; top: 10px; margin: auto; font-size: 15px; font-family: cursive;">
+                    <div id="search_results" style="height: calc(100% - 80px); width: 90%; position: absolute; top: 60px; left: 0; right: 0; margin: auto; color: aliceblue; overflow: auto; font-size: 14px;"></div>
+                </div>
                 <div id="loading"><i class="icon-spin5"></i></div>
                 <div id="result"></div>
             </div>
@@ -168,6 +175,7 @@ var last_dir;
 var test2;
 let root = document.documentElement;
 var elem, song_pos;
+var folder_list;
 
 const collator = new Intl.Collator(undefined, {numeric: true, sensitivity: 'base'});
 //frontend
@@ -220,7 +228,13 @@ window.onpopstate = function () {
     if (path != "" && isDoneFetch == 1) old_path()
 };
 
-function getUrlPara(){
+	
+var getUrlPara = ()=>{
+     gui = [{
+        path: "",
+        folder: "Home",
+        last_scroll: 0,
+    }];
     var urlpath = decodeURIComponent(document.location.search).replace('?path=', "")
     for (var i = 0; i < urlpath.split('/').length - 1; i++){
         var pathtemp =  urlpath.split('/')
@@ -1066,6 +1080,91 @@ $("#wallpaper_center").click(()=>{
 
 //
 
+//search
+fetch(`https://ahrixthinh.net:4000/folder`, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+        },
+}).then(response => {
+	return response.json()})
+.then(data => {
+    folder_list = data
+})
+
+
+const fuseOptions = {
+	isCaseSensitive: false,
+	//includeScore: true,
+	// shouldSort: true,
+	//includeMatches: true,
+	//findAllMatches: true,
+	minMatchCharLength: 2,
+	// location: 0,
+	threshold: 0.3,
+	// distance: 100,
+	// useExtendedSearch: false,
+	// ignoreLocation: false,
+	// ignoreFieldNorm: false,
+	// fieldNormWeight: 1,
+	keys: [
+        "name"
+	]
+};
+
+var fuse
+function folder_search(dir, name){
+
+    fuse = new Fuse(dir, fuseOptions);
+
+    var result = fuse.search($("#search_value").val().toLowerCase())
+    result.forEach((e)=>{
+        $("#search_results").append(`<div class="search_result" onclick="search_summit(this)">${name}/${e.name}</div>`)
+    })
+
+    for(var i = 0; i < dir.length; i++){
+        folder_search(dir[i].sub, name+"/"+dir[i].name)
+    }  
+     
+}
+
+function search(){
+    $("#search_results").html("")
+
+    fuse = new Fuse(folder_list, fuseOptions);
+
+    var result = fuse.search($("#search_value").val().toLowerCase())
+    result.forEach((e)=>{
+        $("#search_results").append(`<div class="search_result" onclick="search_summit(this)">${e.name}</div>`)
+    })
+
+    for(var i = 0; i < folder_list.length; i++){
+        folder_search(folder_list[i].sub, folder_list[i].name)
+    }
+}
+
+document.querySelector("#search_value").addEventListener("input", ()=>{
+    if ($("#search_value").val().length > 1){search()}
+    else{$("#search_results").html("")}
+});
+
+function search_show(){
+    if ($("#search_panel").css('opacity') == 0){
+        $("#search_panel").css('opacity', '1').css('pointer-events', 'all').css('backdrop-filter', 'blur(2px)')
+        document.querySelector("#search_value").focus()
+    }else{
+        $("#search_panel").css('opacity', '0').css('pointer-events', 'none').css('backdrop-filter', 'blur(0px)')
+    }
+}
+
+function search_summit(e){
+    path = encodeURIComponent($(e).html())+"%2F"
+    getUrlPara()
+    fetch_folder()
+    $("#search_panel").css('opacity', '0').css('pointer-events', 'none').css('backdrop-filter', 'blur(0px)')
+}
+
+
 </script>
 
 <style>
@@ -1414,6 +1513,27 @@ button {
 	transition: 0.3s;
 }
 
+#search{
+    margin-left: 0 !important;
+}
+
+.search_result{
+    height: 20px;
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 10px 0 10px 0;
+    background-color: rgb(7 7 8 / 56%);
+    border-radius: 4px;
+    direction: rtl;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    transition: 0.25s;
+}
+
+.search_result:hover{
+    background-color: rgba(60, 60, 62, 0.508);
+}
 
 #wallpaper_panel {
     position: absolute;
@@ -1441,12 +1561,12 @@ button {
     left: 10px;
 }
 
-#wallpaper_panel #close, #wallpaper_panel #wallpaper_left, #wallpaper_panel #wallpaper_right, #wallpaper_panel #wallpaper_center, #wallpaper_panel #wallpaper_color {
+#wallpaper_panel #close, #wallpaper_panel #wallpaper_left, #wallpaper_panel #wallpaper_right, #wallpaper_panel #wallpaper_center, #wallpaper_panel #wallpaper_color, #search {
     color: aliceblue;
     transition: 0.2s;
     margin-left: 10px;
 }
-#wallpaper_panel #close:hover , #wallpaper_panel #wallpaper_left:hover, #wallpaper_panel #wallpaper_right:hover, #wallpaper_panel #wallpaper_center:hover, #wallpaper_panel #wallpaper_color:hover{
+#wallpaper_panel #close:hover , #wallpaper_panel #wallpaper_left:hover, #wallpaper_panel #wallpaper_right:hover, #wallpaper_panel #wallpaper_center:hover, #wallpaper_panel #wallpaper_color:hover, #search:hover{
     color: rgba(105, 105, 105, 0.678);
 }
 
