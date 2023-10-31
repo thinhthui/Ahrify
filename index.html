@@ -66,7 +66,7 @@
 		<button id="search" onclick="search_show()" style="width: 30px; font-family: 'Fontawesome'; box-sizing: border-box; border-style: groove groove none groove; border-color: var(--border-color);"><i class="fa fa-search" aria-hidden="true" style="font-size: 18px; font-style: normal;"></i></button>
             </div>
             <div id="main">
-		<div id="search_panel" style="height: 100%; width: 100%; position: absolute; left: 0; right: 0; margin: auto; background-color: #161718c0; backdrop-filter: blur(0px); opacity: 0; pointer-events: none; transition: 0.25s;">
+		<div id="search_panel" style="height: 100%; width: 100%; position: absolute; left: 0; right: 0; margin: auto; background-color: #161718c0; backdrop-filter: blur(0px); opacity: 0; pointer-events: none; transition: 0.25s; z-index: 1;">
                     <input type="text" id="search_value" value="" style="height: 10px; width: 90%; color: aliceblue; background-color: rgb(7 7 8 / 56%); outline: none; border: none; border-radius: 4px; padding: 10px; position: absolute; right: 0; left: 0; top: 10px; margin: auto; font-size: 15px; font-family: cursive;">
                     <div id="search_results" style="height: calc(100% - 80px); width: 90%; position: absolute; top: 60px; left: 0; right: 0; margin: auto; color: aliceblue; overflow: auto; font-size: 14px;"></div>
                 </div>
@@ -1319,7 +1319,7 @@ body {
     background-position: center;
     opacity: 0%;
     pointer-events: none;
-    z-index: 1;
+    z-index: 2;
     overflow: hidden;
     transition: 0.5s;
 }
