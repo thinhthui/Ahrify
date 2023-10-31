@@ -1157,8 +1157,8 @@ function search_show(){
     }
 }
 
-async function search_summit(e){
-    await path = encodeURIComponent($(e).html())+"%2F"
+function search_summit(e){
+    path = encodeURIComponent($(e).html())+"%2F"
     getUrlPara()
     fetch_folder()
     $("#search_panel").css('opacity', '0').css('pointer-events', 'none').css('backdrop-filter', 'blur(0px)')
