@@ -245,6 +245,21 @@ function getUrlPara(){
     path = encodeURIComponent(urlpath)
 }
 
+var getSearch = ()=>{
+    gui = [{
+        path: "",
+        folder: "Home",
+        last_scroll: 0,
+    }];
+    for (var i = 0; i < path.split('%2F').length - 1; i++){
+        var pathtemp =  path.split('%2F')
+        
+        pathtemp.splice(i+1, pathtemp.length - (i+2))
+        path_count(0, encodeURIComponent(pathtemp.join('/')), pathtemp[i])
+        root.style.setProperty('--drop-down-height', gui.length*40 + "px")
+    }
+}
+
 function setUrlPara(){
     window.history.replaceState({first:1}, null, "?path="+decodeURIComponent(path))
 }
@@ -1159,7 +1174,7 @@ function search_show(){
 
 function search_summit(e){
     path = encodeURIComponent($(e).html())+"%2F"
-    getUrlPara()
+    getSearch()
     fetch_folder()
     $("#search_panel").css('opacity', '0').css('pointer-events', 'none').css('backdrop-filter', 'blur(0px)')
 }
