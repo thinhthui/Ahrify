@@ -483,17 +483,14 @@ $('#cover').click(()=>{
 var aud = document.querySelector("audio.fc-media")
 
 $(document).on('keyup',function(e) {
+    if(document.querySelector(":focus") != null) return 
     if(e.key === ' ') play_pause();
     if(e.key === 'PageUp') backward();
     if(e.key === 'PageDown') forward();
     if(e.key === '/') atp();
     if(e.key === 'Escape') old_path();
     if(e.key === 'm') VolumeOnOff();
-    if(e.key === 'F11'){
-      isFullscreen = !isFullscreen;
-      isFullscreen ? $("#top_bar").css('display', 'none') : $("#top_bar").css('display', 'flex');
-      set_width()
-    } 
+    
     
 })
 
@@ -504,6 +501,7 @@ document.querySelector("#volume-pc").addEventListener('wheel', (e)=>{
 
 
 $(document).on('keydown',function(e) {
+    if(document.querySelector(":focus") != null) return 
     if(e.key === 'ArrowLeft') aud.currentTime -= 1;
     if(e.key === 'ArrowRight') aud.currentTime += 1;
     if(e.key === ',') volumedown();
