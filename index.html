@@ -566,12 +566,12 @@ async function play(a){
     }).then(res => res.json())
     .then(res => {
         
-        if (res.title != null) acc = res.title;
-        if (res.picture != null) cover = res.picture;
+        if (res.title != '') acc = res.title;
+        if (res.picture != '') cover = res.picture;
 	
         $('.aud-info').html(acc)
-        if (res.album != null && res.album != "undefined"){$(".album-info .album").html(res.album)}else{$(".album-info .album").html("")}
-        if (res.artist != null){$(".album-info .artist").html(res.artist)}else{$(".album-info .artist").html("")}
+        if (res.album != '' && res.album != "undefined"){$(".album-info .album").html(res.album)}else{$(".album-info .album").html("")}
+        if (res.artist != ''){$(".album-info .artist").html(res.artist)}else{$(".album-info .artist").html("")}
         $('.spin-disc').attr('style',`background-image: url("`+cover+`")`)
         $('.spin-disc').ready(()=>{
             $('#cover #front_cover').attr('style',`background-image: url("`+cover+`"); filter: drop-shadow(0 0 0.5rem rgba(0, 0, 0, 0.582))`)
@@ -616,11 +616,11 @@ async function play_temp(a){
     }).then(res => res.json())
     .then(res => {
         
-        if (res.title != null) acc = res.title;
-        if (res.picture != null) cover = res.picture;
+        if (res.title != '') acc = res.title;
+        if (res.picture != '') cover = res.picture;
         $('.aud-info').html(acc)
-        if (res.album != null && res.album != "undefined"){$(".album-info .album").html(res.album)}else{$(".album-info .album").html("")}
-        if (res.artist != null){$(".album-info .artist").html(res.artist)}else{$(".album-info .artist").html("")}
+        if (res.album != '' && res.album != "undefined"){$(".album-info .album").html(res.album)}else{$(".album-info .album").html("")}
+        if (res.artist != ''){$(".album-info .artist").html(res.artist)}else{$(".album-info .artist").html("")}
         
 	    $('.spin-disc').attr('style',`background-image: url("`+cover+`")`)
 	    $('.spin-disc').ready(()=>{
