@@ -517,8 +517,7 @@ $(document).on('mouseup',function(e) {
     if(e.which == 4) old_path()
 })
 
-var name2;
-var cover2;
+var cover_temp
 async function play(a){
     if (window.innerWidth <= 800) main_music_panel();
     var audio = document.querySelector("audio");
@@ -544,7 +543,7 @@ async function play(a){
 	if (last_dir == `Music/Inspira/` || last_dir == `Music/Voiced%20Out/`)  cover = "https://ahrixthinh.net/"+last_dir+"cover/" + encodeURIComponent(acc) + ".png";
     
 	for (var i = 0; i < files.length; i++){
-        name2 = files[i].n;
+        var name2 = files[i].n;
         var ext = name2.split(".")[name2.split(".").length - 1].trim()
         if (["jpg","png","jpeg","jfif"].includes(ext.toLowerCase())){
            cover = "https://ahrixthinh.net/" + last_dir + encodeURIComponent(name2);
@@ -553,6 +552,7 @@ async function play(a){
         }
         
     }
+    cover_temp = cover
     
     
 
@@ -562,13 +562,13 @@ async function play(a){
             'Accept': 'application/json, text/plain, */*',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({path: decodeURIComponent(last_dir), file: name, cover: name2})
+        body: JSON.stringify({path: decodeURIComponent(last_dir), file: name, cover: cover})
     }).then(res => res.json())
     .then(res => {
         
         if (res.title != null) acc = res.title;
         if (res.picture != null) cover = res.picture;
-	cover2 = cover;
+	
         $('.aud-info').html(acc)
         if (res.album != null && res.album != "undefined"){$(".album-info .album").html(res.album)}else{$(".album-info .album").html("")}
         if (res.artist != null){$(".album-info .artist").html(res.artist)}else{$(".album-info .artist").html("")}
@@ -602,9 +602,9 @@ async function play_temp(a){
 	document.querySelector('#play_list').scrollTop = temp
     }
 	
-    var cover = null
-
+    var cover = cover_temp
     if (last_dir == `Music/Inspira/` || last_dir == `Music/Voiced%20Out/`)  cover = "https://ahrixthinh.net/"+last_dir+"cover/" + encodeURIComponent(acc) + ".png";
+    
     
     await fetch(`https://ahrixthinh.net:4000`, {
         method: 'POST',
@@ -612,7 +612,7 @@ async function play_temp(a){
             'Accept': 'application/json, text/plain, */*',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({path: decodeURIComponent(last_dir), file: name, cover: name2})
+        body: JSON.stringify({path: decodeURIComponent(last_dir), file: name, cover: cover})
     }).then(res => res.json())
     .then(res => {
         
@@ -621,7 +621,7 @@ async function play_temp(a){
         $('.aud-info').html(acc)
         if (res.album != null && res.album != "undefined"){$(".album-info .album").html(res.album)}else{$(".album-info .album").html("")}
         if (res.artist != null){$(".album-info .artist").html(res.artist)}else{$(".album-info .artist").html("")}
-        if (cover == null) cover = cover2
+        
 	    $('.spin-disc').attr('style',`background-image: url("`+cover+`")`)
 	    $('.spin-disc').ready(()=>{
 		$('#cover #front_cover').attr('style',`background-image: url("`+cover+`"); filter: drop-shadow(0 0 0.5rem rgba(0, 0, 0, 0.582))`)
@@ -1112,48 +1112,45 @@ const fuseOptions = {
 	// shouldSort: true,
 	//includeMatches: true,
 	//findAllMatches: true,
-	minMatchCharLength: 1,
+	minMatchCharLength: 2,
 	// location: 0,
-	threshold: 0.1,
+	threshold: 0.3,
 	distance: 700,
 	// useExtendedSearch: false,
-	// ignoreLocation: false,
+	// ignoreLocation: true,
 	// ignoreFieldNorm: false,
 	// fieldNormWeight: 1,
 	keys: [
-        "name"
+        "folder_list"
 	]
 };
 
 var fuse
-function folder_search(dir, name){
+// async function folder_search(dir, name){
 
-    fuse = new Fuse(dir, fuseOptions);
+//     fuse = new Fuse(dir, fuseOptions);
 
-    var result = fuse.search($("#search_value").val().toLowerCase())
-    result.forEach((e)=>{
-        $("#search_results").append(`<div class="search_result" onclick="search_summit(this)">${name}/${e.name}</div>`)
-    })
+//     var result = fuse.search($("#search_value").val())
+//     await result.forEach((e)=>{
+//         $("#search_results").append(`<div class="search_result" onclick="search_summit(this)">${name}/${e.name}</div>`)
+//     })
 
-    for(var i = 0; i < dir.length; i++){
-        folder_search(dir[i].sub, name+"/"+dir[i].name)
-    }  
+//     for(var i = 0; i < dir.length; i++){
+//         folder_search(dir[i].sub, name+"/"+dir[i].name)
+//     }  
      
-}
+// }
 
-function search(){
+async function search(){
     $("#search_results").html("")
 
     fuse = new Fuse(folder_list, fuseOptions);
 
-    var result = fuse.search($("#search_value").val().toLowerCase())
-    result.forEach((e)=>{
-        $("#search_results").append(`<div class="search_result" onclick="search_summit(this)">${e.name}</div>`)
+    var result = fuse.search($("#search_value").val())
+    await result.forEach((e)=>{
+        $("#search_results").append(`<div class="search_result" onclick="search_summit(this)">${e.folder_list}</div>`)
     })
 
-    for(var i = 0; i < folder_list.length; i++){
-        folder_search(folder_list[i].sub, folder_list[i].name)
-    }
 }
 
 document.querySelector("#search_value").addEventListener("input", ()=>{
@@ -1171,8 +1168,8 @@ function search_show(){
 }
 
 function search_summit(e){
-    path = encodeURIComponent($(e).text())+"%2F"
-    getSearch()
+    path = encodeURIComponent($(e).text())+ "%2F"
+    getUrlPara()
     fetch_folder()
     $("#search_panel").css('opacity', '0').css('pointer-events', 'none').css('backdrop-filter', 'blur(0px)')
 }
