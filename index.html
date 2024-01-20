@@ -1467,7 +1467,7 @@ $("#search_mode").click(()=>{
 
 document.querySelector("#result").addEventListener('scroll', ()=>{
     if (order_mode != 'folder'){
-        if ( $("#result").scrollTop() >= document.querySelector("#result").scrollHeight - $('body').height() + 74){
+        if ( $("#result").scrollTop() >= document.querySelector("#result").scrollHeight - $('body').height() + 44){
             for (var i = 0; i < 100 && append_pos < add_mode.length; i++, append_pos++){
                 $("#result").append(`<div class="${add_mode == list ? 'folder' : 'files'}" onclick='${add_mode == list ? 'fetch_mode_songs' : 'play_mode'}(`+append_pos+`)'><i class="${add_mode == list ? 'fa fa-folder-open-o' : 'fa fa-file-audio-o'}" aria-hidden="true" style="margin-right: 10px;"></i>${add_mode == list ? add_mode[append_pos].name : add_mode[append_pos].file_name}</div>`);
                 if ($('#result div').length > 200){
