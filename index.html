@@ -1410,7 +1410,7 @@ var fuse
 async function search(){
     $("#search_results").html("")
 
-    if (order_mode == folder){
+    if (order_mode == "folder"){
         fuse = new Fuse(folder_list, fuseOptions);
     }else{
         fuse = new Fuse(list, fuseOptions);
