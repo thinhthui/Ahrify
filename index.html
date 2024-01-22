@@ -258,14 +258,6 @@ function set_width(){
 //frontend
 
 
-
-
-
-setTimeout(() => {
-  $("#waiting").css('opacity', '0%').css('pointer-events', 'none')
-  atp()
-}, 1000);
-
 history.pushState({first:1}, null, location.href);
 window.onpopstate = function () {
     history.go(1);
