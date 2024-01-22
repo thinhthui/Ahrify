@@ -537,7 +537,7 @@ function select_search_mode(e){
 
         search_summit = (e)=>{
             path = encodeURIComponent($(e).text())+ "%2F"
-            getUrlPara()
+            getSearch()
             fetch_folder()
             $("#search_panel").css('opacity', '0').css('pointer-events', 'none').css('backdrop-filter', 'blur(0px)')
         }
@@ -1440,7 +1440,7 @@ function search_show(){
 
 var search_summit = (e)=>{
     path = encodeURIComponent($(e).text())+ "%2F"
-    getUrlPara()
+    getSearch()
     fetch_folder()
     $("#search_panel").css('opacity', '0').css('pointer-events', 'none').css('backdrop-filter', 'blur(0px)')
 }
