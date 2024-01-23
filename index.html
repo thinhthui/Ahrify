@@ -19,6 +19,7 @@
     <script src="assets/webkit-input-range-fill-lower.min.js"></script>
     <script src="assets/fuse.js"></script>
     <link rel="stylesheet" href="assets/fontello.css">
+    <link rel="stylesheet" href="assets/flower.css">
     
 
     
@@ -27,7 +28,19 @@
 	<div id="cursor"></div>
     
     <div id="waiting" style="width: 100vw; height: 100vh; position: absolute; opacity: 100%; z-index: 10; background-color: #000000; transition: 0.5s;">
-      <div id="waiting_loading"><span>0</span></div>
+      	<div class="flower">
+            <div class="droplet" id="no1"></div>
+            <div class="droplet" id="no2"></div>
+            <div class="droplet" id="no3"></div>
+            <div class="droplet" id="no4"></div>
+            <div class="droplet" id="no5"></div>
+            <div class="droplet" id="no6"></div>
+            <div class="droplet" id="no7"></div>
+            <div class="droplet" id="no8"></div>
+            <div class="droplet" id="no9"></div>
+            <div class="droplet" id="no10"></div>
+        </div>
+	<div id="waiting_loading"><span>0</span></div>
     </div>
 
     <div id="wallpaper_panel">
@@ -223,6 +236,8 @@ window.addEventListener('load', async () =>{
     }
     $("#waiting_loading").css('opacity', '0%').css('font-size', '15rem')
     await sleep(1000)
+    
+    $(".flower").css('opacity', '0%')
     $("#waiting").css('opacity', '0%').css('pointer-events', 'none')
     atp()
 })
@@ -1585,11 +1600,11 @@ body {
   position: absolute;
   width: fit-content;
   height: fit-content;
-  left: 0;
+  
   right: 0;
-  top: 0;
+  
   bottom: 0;
-  margin: auto;
+  margin: 0 20px 0 0;
   opacity: 1;
   transition: 1s ease-out;
 }
