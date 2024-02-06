@@ -306,7 +306,7 @@ var getSearch = ()=>{
         var pathtemp =  path.split('%2F')
         
         pathtemp.splice(i+1, pathtemp.length - (i+2))
-        path_count(0, pathtemp.join('/'), pathtemp[i])
+        path_count(0, pathtemp.join('%2F'), pathtemp[i])
         root.style.setProperty('--drop-down-height', gui.length*40 + "px")
     }
 }
