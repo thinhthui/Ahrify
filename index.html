@@ -348,7 +348,7 @@ function path_gui(i){
         $('#loading').css('display', 'block')
 		$("#cursor").css('background-image', "url(assets/Cursors/loading.gif)")
         document.querySelector('#result').innerHTML = "";
-        fetch(`https://ahrixthinh.net/~/api/get_file_list?uri=%2F`+path_gui_fetch+`%2F`, {
+        fetch(`https://server.ahrixthinh.net/~/api/get_file_list?uri=%2F`+path_gui_fetch+`%2F`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -408,7 +408,7 @@ function fetch_folder(scrollck){
     $("#path-panel").parent().css("pointer-events", "none")
     isDoneFetch = 0;
     document.querySelector('#result').innerHTML = "";
-    fetch(`https://ahrixthinh.net/~/api/get_file_list?uri=%2F`+path+`%2F`, {
+    fetch(`https://server.ahrixthinh.net/~/api/get_file_list?uri=%2F`+path+`%2F`, {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
@@ -671,7 +671,7 @@ $('#mobile_sub_panel').click(()=>{
 
 function preview(a){
     var name = files[a].n;
-    var cover = "https://ahrixthinh.net/" + path.replace(/\%2F/g, "/") + encodeURIComponent(name).replace(/\%2F/g, "/")
+    var cover = "https://server.ahrixthinh.net/" + path.replace(/\%2F/g, "/") + encodeURIComponent(name).replace(/\%2F/g, "/")
     $('#preview #photo').attr('style',`background-image: url("`+cover+`")`)
     $('#preview').css('display',`flex`).css('pointer-events', 'visible')
 }
@@ -731,7 +731,7 @@ async function play(a){
     list_append()
     song_pos =  check_pos(acc);
     last_dir = path.replace(/\%2F/g, "/");
-    audio.src = "https://ahrixthinh.net/" +last_dir + encodeURIComponent(name)
+    audio.src = "https://server.ahrixthinh.net/" +last_dir + encodeURIComponent(name)
     $('#play_list div').removeAttr('style');
     $('#play_list div').eq(song_pos).css('animation', 'fade 2s ease infinite alternate')
 	
@@ -741,14 +741,14 @@ async function play(a){
 	document.querySelector('#play_list').scrollTop = temp
     }
 	
-    var cover = "https://ahrixthinh.net/Photos/icon.jpg"
-	if (last_dir == `Music/Inspira/` || last_dir == `Music/Voiced%20Out/`)  cover = "https://ahrixthinh.net/"+last_dir+"cover/" + encodeURIComponent(acc) + ".png";
+    var cover = "https://server.ahrixthinh.net/Photos/icon.jpg"
+	if (last_dir == `Music/Inspira/` || last_dir == `Music/Voiced%20Out/`)  cover = "https://server.ahrixthinh.net/"+last_dir+"cover/" + encodeURIComponent(acc) + ".png";
     
 	for (var i = 0; i < files.length; i++){
         var name2 = files[i].n;
         var ext = name2.split(".")[name2.split(".").length - 1].trim()
         if (["jpg","png","jpeg","jfif"].includes(ext.toLowerCase())){
-           cover = "https://ahrixthinh.net/" + last_dir + encodeURIComponent(name2);
+           cover = "https://server.ahrixthinh.net/" + last_dir + encodeURIComponent(name2);
            if (name2 !== null && name2.toLowerCase().trim().includes("cover")) break;
            if (name2 !== null && name2.toLowerCase().trim().includes("folder")) break;
         }
@@ -794,7 +794,7 @@ async function play_temp(a){
         acc = acc.join('.');
 
     song_pos =  check_pos(acc);
-    audio.src = "https://ahrixthinh.net/" + last_dir + encodeURIComponent(name)
+    audio.src = "https://server.ahrixthinh.net/" + last_dir + encodeURIComponent(name)
     $('#play_list div').removeAttr('style');
     $('#play_list div').eq(song_pos).css('animation', 'fade 2s ease infinite alternate')
     
@@ -805,7 +805,7 @@ async function play_temp(a){
     }
 	
     var cover = cover_temp
-    if (last_dir == `Music/Inspira/` || last_dir == `Music/Voiced%20Out/`)  cover = "https://ahrixthinh.net/"+last_dir+"cover/" + encodeURIComponent(acc) + ".png";
+    if (last_dir == `Music/Inspira/` || last_dir == `Music/Voiced%20Out/`)  cover = "https://server.ahrixthinh.net/"+last_dir+"cover/" + encodeURIComponent(acc) + ".png";
     
     
     await fetch(`https://ahrixthinh.net:4000`, {
@@ -846,13 +846,13 @@ async function play_mode(a){
     list_append_mode()
     song_pos =  a
     
-    audio.src = `https://ahrixthinh.net/${encodeURIComponent(song_list[a].folder).replace(/\%2F/g, "/")}/${encodeURIComponent(name)}`
+    audio.src = `https://server.ahrixthinh.net/${encodeURIComponent(song_list[a].folder).replace(/\%2F/g, "/")}/${encodeURIComponent(name)}`
     $('#play_list div').removeAttr('style');
     $('#play_list div').eq(song_pos).css('animation', 'fade 2s ease infinite alternate')
     
 
     var temp_files =[]
-    await fetch(`https://ahrixthinh.net/~/api/get_file_list?uri=%2F`+encodeURIComponent(song_list[a].folder)+`%2F`, {
+    await fetch(`https://server.ahrixthinh.net/~/api/get_file_list?uri=%2F`+encodeURIComponent(song_list[a].folder)+`%2F`, {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
@@ -873,14 +873,14 @@ async function play_mode(a){
 	    document.querySelector('#play_list').scrollTop = temp
     }
     
-    var cover = "https://ahrixthinh.net/Photos/icon.jpg"
-	if (song_list[a].folder == `Music/Inspira` || song_list[a].folder == `Music/Voiced Out`)  cover = "https://ahrixthinh.net/"+encodeURIComponent(song_list[a].folder).replace(/\%2F/g, "/") +"/cover/" + encodeURIComponent(acc) + ".png";
+    var cover = "https://server.ahrixthinh.net/Photos/icon.jpg"
+	if (song_list[a].folder == `Music/Inspira` || song_list[a].folder == `Music/Voiced Out`)  cover = "https://server.ahrixthinh.net/"+encodeURIComponent(song_list[a].folder).replace(/\%2F/g, "/") +"/cover/" + encodeURIComponent(acc) + ".png";
     
 	for (var i = 0; i < temp_files.length; i++){
         var name2 = temp_files[i].n;
         var ext = name2.split(".")[name2.split(".").length - 1].trim()
         if (["jpg","png","jpeg","jfif"].includes(ext.toLowerCase())){
-           cover = `https://ahrixthinh.net/${encodeURIComponent(song_list[a].folder).replace(/\%2F/g, "/")}/${encodeURIComponent(name2)}`;
+           cover = `https://server.ahrixthinh.net/${encodeURIComponent(song_list[a].folder).replace(/\%2F/g, "/")}/${encodeURIComponent(name2)}`;
            if (name2 !== null && name2.toLowerCase().trim().includes("cover")) break;
            if (name2 !== null && name2.toLowerCase().trim().includes("folder")) break;
         }
@@ -1263,7 +1263,7 @@ $("#wallpaper_panel #close").click(()=>{
     $("#wallpaper_panel").css("opacity", "0").css("pointer-events", "none")
 })
 
-fetch(`https://ahrixthinh.net/~/api/get_file_list?uri=%2Ftheme%2F`, {
+fetch(`https://server.ahrixthinh.net/~/api/get_file_list?uri=%2Ftheme%2F`, {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
@@ -1272,7 +1272,7 @@ fetch(`https://ahrixthinh.net/~/api/get_file_list?uri=%2Ftheme%2F`, {
 	return response.json()})
 .then(data => {
     for (var i = 0; i < data.list.length; i++){
-        $("#wallpaper_content").append(`<div class="wallpaper" onclick="change_wallpaper(this)" style="background-image: url(https://ahrixthinh.net/theme/${data.list[i].n})"></div>`)
+        $("#wallpaper_content").append(`<div class="wallpaper" onclick="change_wallpaper(this)" style="background-image: url(https://server.ahrixthinh.net/theme/${data.list[i].n})"></div>`)
     }
 })
 
