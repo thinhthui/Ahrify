@@ -270,7 +270,7 @@ function set_width(){
         //$("#sub_panel").css('height', window.innerHeight-2+"px")
         $('#sub_panel').css('margin-left',`0`)
         $('#main_panel').css('margin-left',`0`)
-        //$('#mobile_sub_panel').css('margin-left',`0`)
+        $('#mobile_sub_panel').css('margin-left',`0`)
         root.style.setProperty('--path-width', (window.innerWidth/2 - 80)/6 + "px");
     }else{
         root.style.setProperty('--main-width', window.innerWidth + "px");
@@ -278,7 +278,7 @@ function set_width(){
         root.style.setProperty('--cover-height', document.querySelector('#cover').clientHeight + "px");
         $('#sub_panel').css('margin-left',`100%`)
         $('#main_panel').css('margin-left',`0`)
-        //$('#mobile_sub_panel').css('margin-left',`0`)
+        $('#mobile_sub_panel').css('margin-left',`0`)
         root.style.setProperty('--path-width', (window.innerWidth - 80)/6 + "px");
     }
 
@@ -681,15 +681,13 @@ function back_menu(){
 function main_music_panel(){
     $('#sub_panel').css('margin-left',`0`)
     $('#main_panel').css('margin-left',`-105%`)
-    
+    $('#mobile_sub_panel').css('margin-left',`-105%`)
 }
 
 document.querySelector('#mobile_sub_panel').addEventListener('touchstart', main_music_panel)
 
 $('#mobile_sub_panel').click(()=>{
-    $('#sub_panel').css('margin-left',`0`)
-    $('#main_panel').css('margin-left',`-105%`)
-    $('#mobile_sub_panel').css('margin-left',`-105%`)
+     main_music_panel()
 })
 
 function preview(a){
@@ -2099,7 +2097,7 @@ button {
 
 #wallpaper {
     position: absolute;
-    top: 3px;
+    top: 7px;
     right: 30px;
 }
 
