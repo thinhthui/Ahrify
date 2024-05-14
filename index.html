@@ -265,7 +265,7 @@ setTimeout(()=>{
 function set_width(){
     if (window.innerWidth > 800){
         root.style.setProperty('--main-width', window.innerWidth/2 + "px");
-        //root.style.setProperty('--main-height', window.innerHeight-52 + "px");
+        root.style.setProperty('--main-height', window.innerHeight-88 + "px")
         root.style.setProperty('--cover-height', window.innerHeight/2+ "px");
         //$("#sub_panel").css('height', window.innerHeight-2+"px")
         $('#sub_panel').css('margin-left',`0`)
@@ -274,13 +274,22 @@ function set_width(){
         root.style.setProperty('--path-width', (window.innerWidth/2 - 80)/6 + "px");
     }else{
         root.style.setProperty('--main-width', window.innerWidth + "px");
-        //root.style.setProperty('--main-height', window.innerHeight - document.querySelector('#mobile_sub_panel').clientHeight + "px");
+        root.style.setProperty('--main-height', window.innerHeight - document.querySelector('#mobile_sub_panel').clientHeight - 36 + "px");
         root.style.setProperty('--cover-height', document.querySelector('#cover').clientHeight + "px");
         $('#sub_panel').css('margin-left',`105%`)
         $('#main_panel').css('margin-left',`0`)
         //$('#mobile_sub_panel').css('margin-left',`0`)
         root.style.setProperty('--path-width', (window.innerWidth - 80)/6 + "px");
     }
+
+    var path_real_width = 0;
+    for (i = 0; i < gui.length; i++){
+        path_real_width +=  $("#path-panel .path_gui").eq(i).width()
+    }
+    if (path_real_width > $("#path-panel").width()){
+        $("#path-panel").css('justify-content', 'flex-end')
+    }else{ $("#path-panel").css('justify-content', 'flex-start')}
+	
     title_pos()
 }
 //frontend
@@ -1718,12 +1727,11 @@ body {
 #panel {
     display: flex;
     width: 100vw;
-    height: 100vh;
 }
 
 #main_panel {
-    width: 50%;
-    height: 100vh;
+    width: var(--main-width);
+    height: var(--main-height);
 }
 
 #path-panel {
