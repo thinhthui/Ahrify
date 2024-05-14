@@ -78,39 +78,49 @@
 
     <div id="panel">
         <div id="main_panel">
-            <div style="display: flex; height: 50px;">
-                <button onclick="old_path()"><i class="fa fa-reply" aria-hidden="true" style="font-size: 20px;"></i></button>
+            
+            <div style="display: flex; background-color: var(--address-bar-bg); border-radius: 5px; margin: 10px 4px 10px 4px">
+                <button onclick="old_path()" style="width: 50px"><i class="fa fa-reply" aria-hidden="true" style="font-size: 20px;"></i></button>
                 <div>
-                    <button id="drop-down-button" onclick="drop_down()" style="width: 30px; font-family: 'Fontawesome'; box-sizing: border-box; border-style: groove groove none groove; border-color: var(--border-color);"><i class="fa-angle-double-down" aria-hidden="true" style="font-size: 18px; font-style: normal;"></i></button>
+                <!--<button id="drop-down-button" onclick="drop_down()" style="width: 30px; font-family: 'Fontawesome'; box-sizing: border-box; border-style: groove groove none groove; border-color: var(--border-color);"><i class="fa-angle-double-down" aria-hidden="true" style="font-size: 15px; font-style: normal;"></i></button> -->
+                    <button id="drop-down-button" onclick="drop_down()" style="width: 30px; font-family: 'Fontawesome';"><i class="fa-angle-double-down" aria-hidden="true" style="font-size: 15px; font-style: normal;"></i></button>
                     <div id="drop-down"><div class="path_gui" onclick="path_gui(0)">Home</div></div>
                 </div>
-		<button id="search_mode" style="width: 30px; font-family: 'Fontawesome'; box-sizing: border-box; border-style: groove groove none none; border-color: var(--border-color);"><i class="fa-sort" aria-hidden="true" style="font-size: 18px; font-style: normal;"></i></button>
+                <!-- <button id="search_mode" style="width: 30px; font-family: 'Fontawesome'; box-sizing: border-box; border-style: groove groove none none; border-color: var(--border-color);"><i class="fa-sort" aria-hidden="true" style="font-size: 15px; font-style: normal;"></i></button> -->
+                <button id="search_mode" style="width: 30px; font-family: 'Fontawesome';"><i class="fa-sort" aria-hidden="true" style="font-size: 15px; font-style: normal;"></i></button>
                 <div id="path-panel">
                     <div class="path_gui" onclick="path_gui(0)">Home</div>
                 </div>
 
-		<button id="search" onclick="search_show()" style="width: 30px; font-family: 'Fontawesome'; box-sizing: border-box; border-style: groove groove none groove; border-color: var(--border-color);"><i class="fa fa-search" aria-hidden="true" style="font-size: 18px; font-style: normal;"></i></button>
+                <!-- <button id="search" onclick="search_show()" style="width: 30px; font-family: 'Fontawesome'; box-sizing: border-box; border-style: groove groove none groove; border-color: var(--border-color);"><i class="fa fa-search" aria-hidden="true" style="font-size: 15px; font-style: normal;"></i></button> -->
+                <button id="search" onclick="search_show()" style="width: 30px; font-family: 'Fontawesome';"><i class="fa fa-search" aria-hidden="true" style="font-size: 15px; font-style: normal;"></i></button>
             </div>
             <div id="main">
-		<div id="search_panel" style="height: 100%; width: 100%; position: absolute; left: 0; right: 0; margin: auto; background-color: #161718c0; backdrop-filter: blur(0px); opacity: 0; pointer-events: none; transition: 0.25s; z-index: 1;">
+                <div id="search_panel" style="height: 100%; width: 100%; position: absolute; left: 0; right: 0; margin: auto; background-color: #161718c0; border-radius: 5px; backdrop-filter: blur(0px); opacity: 0; pointer-events: none; transition: 0.25s; z-index: 1;">
                     <input type="text" id="search_value" value="" style="height: 10px; width: 90%; color: aliceblue; background-color: rgb(7 7 8 / 56%); outline: none; border: none; border-radius: 4px; padding: 10px; position: absolute; right: 0; left: 0; top: 10px; margin: auto; font-size: 15px; font-family: cursive;">
                     <div id="search_results" style="height: calc(100% - 80px); width: 90%; position: absolute; top: 60px; left: 0; right: 0; margin: auto; color: aliceblue; overflow: auto; font-size: 14px;"></div>
                 </div>
                 <div id="loading"><i class="icon-spin5"></i></div>
-                <div id="result"></div>
+                <div id="result">
+                    <div id="result_in">
+                    
+                    </div>
+                </div>
+            </div>
+
+            <div id="mobile_sub_panel" style="display: none;">
+                <div class="album-info">
+                    <span class="album"></span><br>
+                    <span class="artist"></span>
+                </div>
+                <div class="spin-disc"></div>
+                <div class="wrap-text">
+                    <span class="aud-info">nothing has played yet</span>
+                </div>
             </div>
         </div>
 
-        <div id="mobile_sub_panel" style="display: none;">
-            <div class="album-info">
-                <span class="album"></span><br>
-                <span class="artist"></span>
-            </div>
-            <div class="spin-disc"></div>
-            <div class="wrap-text">
-                <span class="aud-info">nothing has played yet</span>
-            </div>
-        </div>
+        
 
         <div id="sub_panel">
             <button id="back_menu" onclick="back_menu()" style="font-size: 15px; display: none;"><i class="fa fa-reply" aria-hidden="true"></i></button>
@@ -119,7 +129,7 @@
                 <div id="back_cover"></div>
             </div>
             <div id="play_list"></div>
-            <div class="contain" >
+            
                 <div class="music-player">
                     <div class="album-info">
                         <span class="album"></span><br>
@@ -130,8 +140,10 @@
                         <span class="aud-info">nothing has played yet</span>
                     </div>
                     <div class="btn">
+                        <div id="scroll_speed"><i class="fa fa-paper-plane" aria-hidden="true"></i></div>
+                        <div id="cover_toggle"><i class="fa fa-picture-o" aria-hidden="true"></i></div>
                         <div id="wallpaper"><i class="fa fa-camera-retro" aria-hidden="true"></i></div>
-						<i class="fa fa-question" id="help_button" aria-hidden="true">
+                        <i class="fa fa-question" id="help_button" aria-hidden="true">
                             <ul>
                               <li>Space : play/pausa</li>
                               <li>PageUp : previous song</li>
@@ -145,7 +157,7 @@
                         </i>
                         <div id="left-right" style="width: 150px; left: 0; right: 0; margin-left: auto; margin-right: auto; display: flex; justify-content: space-between; position: absolute; top: 53px; z-index: 4">
                             <button onclick="backward()" style="color: #aeaeae60; background-color: transparent; border: none; width: fit-content; height: fit-content;"><i class="fa fa-backward" style="transition: 0.2s;"></i></button>
-			    <button onclick="play_pause()" style="color: aliceblue; background-color: transparent; border: none; width: fit-content; height: fit-content; cursor: pointer;"><i class="fa fa-play"></i></button>
+                            <button onclick="play_pause()" style="color: aliceblue; background-color: transparent; border: none; width: fit-content; height: fit-content; cursor: pointer;"><i class="fa fa-play"></i></button>
                             <button onclick="forward()" style="color: #aeaeae60; background-color: transparent; border: none; width: fit-content; height: fit-content;"><i class="fa fa-forward" style="transition: 0.2s;"></i></button>
                         </div>
                         <!-- volume -->
@@ -178,7 +190,7 @@
                         <audio class="fc-media" src="null" autoplay></audio>
                     </div>
                 </div>
-        </div>
+        
         </div> 
 
     </div>
@@ -209,6 +221,7 @@ var append_pos = 0;
 var prepend_pos = 0;
 var add_mode;
 var progress = 0;
+var cover_enable
 	
 const collator = new Intl.Collator(undefined, {numeric: true, sensitivity: 'base'});
 //frontend
@@ -1197,40 +1210,40 @@ function visibilityScroll(){
 var scrolleffect
 var scroll_direction = 100
 var scroll_count = []
-
-/*
+var scroll_enable
 document.querySelector("#result").addEventListener('wheel', async (e)=>{
-    if (scroll_direction !== e.deltaY) {
-        for(i=0; i < scroll_count.length; i++){
-            window.clearInterval(scroll_count[i])
+    if (scroll_enable){
+        if (scroll_direction !== e.deltaY) {
+            for(i=0; i < scroll_count.length; i++){
+                window.clearInterval(scroll_count[i])
+            }
+            scroll_count = []
         }
-        scroll_count = []
-    }
-    scroll_direction = e.deltaY
-    var timescroll = 0
-    var speed = Math.abs(e.deltaY)/166*4 + 4
-    var vec = Math.abs(e.deltaY)/166*0.1
-    var id = -1
-    
-    scrolleffect = setInterval(()=>{
-        if (id == -1) id = scrolleffect
-        else if (timescroll < 400 && speed >= 0){
-            speed -= vec
-        }else{
-            window.clearInterval(id)
-        }
-
-        if (e.deltaY < 0 && speed > 0 && document.getElementById("result").scrollTop > 0){
-            document.getElementById("result").scrollTop -= speed;
-        }else if (e.deltaY > 0 && speed > 0 && document.getElementById("result").scrollTop + $('#result').height() < document.getElementById("result").scrollHeight-10){
-            document.getElementById("result").scrollTop += speed;
-        }
+        scroll_direction = e.deltaY
+        var timescroll = 0
+        var speed = Math.abs(e.deltaY)/166*3 + 4
+        var vec = Math.abs(e.deltaY)/166*0.1
+        var id = -1
         
-        timescroll += 1
-    },10)
-    scroll_count.push(scrolleffect)
+        scrolleffect = setInterval(()=>{
+            if (id == -1) id = scrolleffect
+            else if (timescroll < 400 && speed >= 0){
+                speed -= vec
+            }else{
+                window.clearInterval(id)
+            }
+
+            if (e.deltaY < 0 && speed > 0 && document.getElementById("result").scrollTop > 0){
+                document.getElementById("result").scrollTop -= speed;
+            }else if (e.deltaY > 0 && speed > 0 && document.getElementById("result").scrollTop + $('#result').height() < document.getElementById("result").scrollHeight-10){
+                document.getElementById("result").scrollTop += speed;
+            }
+            
+            timescroll += 1
+        },10)
+        scroll_count.push(scrolleffect)
+    }
 });
-*/
 
 //cursor
 // document.querySelector("html").addEventListener('mousemove', async (e)=>{
@@ -1299,35 +1312,41 @@ else{
     if(localStorage.getItem("theme-color") != "white"){
         root.style.setProperty('--theme-color', "#1a1a1a");
         root.style.setProperty('--invert', "invert(1)");
-        root.style.setProperty('--border-color', "rgb(209 209 209 / 78%)");
+        root.style.setProperty('--border-color', "rgba(61, 61, 61, 0.781)");
         
         $("#slider").css("background", "#7f7f7f")
         audio_slider._options.color = "#1a1a1a"
         
-        
+        root.style.setProperty('--address-bar-bg', "rgb(149 149 149 / 52%)");
 
         root.style.setProperty('--timerail-total', "hsl(0deg 0% 0% / 30%) ");
         root.style.setProperty('--timerail-current', "#292a2d none repeat scroll 0 0 ");
         root.style.setProperty('--timerail-hover', "hsl(0deg 0% 68.65% / 50%) ");
 
-	root.style.setProperty('--frame--background', "#b8c0c552");
+	    root.style.setProperty('--frame--background', "radial-gradient(#ffffff2b, #aeb2b563)");
 
+        root.style.setProperty('--close-button-color', "#0dffcf");
 	    
         $("#auto-play ul").css("color", "#292929").css("background-color", "#d5d5d5c4")
         
     }else{
-        root.style.setProperty('--theme-color', "#d2dbe3");
+        root.style.setProperty('--theme-color', "#ebf0f5");
         root.style.setProperty('--invert', "invert(0)");
-        root.style.setProperty('--border-color', "rgba(61, 61, 61, 0.781)");
+        root.style.setProperty('--border-color', "rgb(209 209 209 / 78%)");
+        
 
         $("#slider").css("background", "#3a3a3a")
         audio_slider._options.color = "#d2dbe3"
+        
+        root.style.setProperty('--address-bar-bg', "#1e1e1e87");
 
         root.style.setProperty('--timerail-total', "hsla(0,0%,100%,.3) ");
         root.style.setProperty('--timerail-current', "#d8dceb none repeat scroll 0 0 ");
         root.style.setProperty('--timerail-hover', "hsla(0,0%,100%,.5) ");
 
-	root.style.setProperty('--frame--background', "#0000005e");
+	root.style.setProperty('--frame--background', "radial-gradient(#0000003d, #0000009c)");
+
+        root.style.setProperty('--close-button-color', "#f20030");
         
 
         $("#auto-play ul").css("color", "aliceblue").css("background-color", "#0000008a")
@@ -1342,32 +1361,40 @@ $("#wallpaper_color").click(()=>{
     if(localStorage.getItem("theme-color") == "white"){
         root.style.setProperty('--theme-color', "#1a1a1a");
         root.style.setProperty('--invert', "invert(1)");
-        root.style.setProperty('--border-color', "rgb(209 209 209 / 78%)");
+        root.style.setProperty('--border-color', "rgba(61, 61, 61, 0.781)");
         
         $("#slider").css("background", "#7f7f7f")
         audio_slider._options.color = "#1a1a1a"
+
+        root.style.setProperty('--address-bar-bg', "rgb(149 149 149 / 52%)");
 
         root.style.setProperty('--timerail-total', "hsl(0deg 0% 0% / 30%) ");
         root.style.setProperty('--timerail-current', "#292a2d none repeat scroll 0 0 ");
         root.style.setProperty('--timerail-hover', "hsl(0deg 0% 68.65% / 50%) ");
 
-	root.style.setProperty('--frame--background', "#b8c0c552");
+	root.style.setProperty('--frame--background', "radial-gradient(#ffffff2b, #aeb2b563)");
+
+        root.style.setProperty('--close-button-color', "#0dffcf");
 
         $("#auto-play ul").css("color", "#292929").css("background-color", "#d5d5d5c4")
         localStorage.setItem("theme-color", "black")
     }else{
-        root.style.setProperty('--theme-color', "#d2dbe3");
-        root.style.setProperty('--invert', "invert(0)");
-        root.style.setProperty('--border-color', "rgba(61, 61, 61, 0.781)");
-
+        root.style.setProperty('--theme-color', "#ebf0f5");
+        root.style.setProperty('--invert', "invert(0)");     
+        root.style.setProperty('--border-color', "rgb(209 209 209 / 78%)");
+        
         $("#slider").css("background", "#3a3a3a")
         audio_slider._options.color = "#d2dbe3"
+
+        root.style.setProperty('--address-bar-bg', "#1e1e1e87");
 
         root.style.setProperty('--timerail-total', "hsla(0,0%,100%,.3) ");
         root.style.setProperty('--timerail-current', "#d8dceb none repeat scroll 0 0 ");
         root.style.setProperty('--timerail-hover', "hsla(0,0%,100%,.5) ");
 
-	root.style.setProperty('--frame--background', "#0000005e");
+	root.style.setProperty('--frame--background', "radial-gradient(#0000003d, #0000009c)");
+
+        root.style.setProperty('--close-button-color', "#f20030");
 
         $("#auto-play ul").css("color", "aliceblue").css("background-color", "#0000008a")
         localStorage.setItem("theme-color", "white")
@@ -1523,7 +1550,55 @@ document.querySelector("#result").addEventListener('scroll', ()=>{
 })
 
 
+//enable scroll and cover
+if (localStorage.getItem("scroll_enable") == undefined) {
+    localStorage.setItem("scroll_enable", true)
+    scroll_enable = true
+}else{
+    if(localStorage.getItem("scroll_enable")){
+        root.style.setProperty('--scroll-enable', "aliceblue");
+    }else{
+        root.style.setProperty('--scroll-enable', "#f0f8ff80");
+    }
+    scroll_enable = localStorage.getItem("scroll_enable")
+}
 
+$("#scroll_speed").click(()=>{
+    scroll_enable = !scroll_enable
+    if (scroll_enable){
+        root.style.setProperty('--scroll-enable', "aliceblue");
+    }else{
+        root.style.setProperty('--scroll-enable', "#f0f8ff80");   
+    }
+    localStorage.setItem("scroll_enable", scroll_enable)
+})
+
+
+if (localStorage.getItem("cover_enable") == undefined) {
+    localStorage.setItem("cover_enable", true)
+    cover_enable = true
+}else{
+    if(localStorage.getItem("cover_enable")){
+        root.style.setProperty('--cover-enable', "aliceblue");
+        $("#cover").css("display", "")
+    }else{
+        root.style.setProperty('--cover-enable', "#f0f8ff80");
+        $("#cover").css("display", "none")
+    }
+    cover_enable = localStorage.getItem("cover_enable")
+}
+
+$("#cover_toggle").click(()=>{
+    cover_enable = !cover_enable
+    if (cover_enable){
+        root.style.setProperty('--cover-enable', "aliceblue");
+        $("#cover").css("display", "")
+    }else{
+        root.style.setProperty('--cover-enable', "#f0f8ff80");
+        $("#cover").css("display", "none")
+    }
+    localStorage.setItem("cover_enable", cover_enable)
+})
 
 
 </script>
@@ -1532,20 +1607,29 @@ document.querySelector("#result").addEventListener('scroll', ()=>{
 :root {
     --main-width: 0;
     --main-height: 0;
-    --auto-play-i: '\e802';
+    --auto-play-i: '\e803';
     --cover-height: 0px;
     --path-width : 0px;
     --drop-down-height: 40px;
     --scoll-title: 0;
     --scoll-album: 0;
     --scoll-artist: 0;
-    --theme-color: #d2dbe3;
+    --theme-color: #ebf0f5;
     --invert: invert(0);
     --border-color: rgba(61, 61, 61, 0.781);
     --timerail-total: hsla(0,0%,100%,.3) ;
     --timerail-current: #d8dceb none repeat scroll 0 0 ;
     --timerail-hover: hsla(0,0%,100%,.5) ;
-    --frame--background: #0000005e;
+    --frame--background: radial-gradient(#0000003d, #0000009c);
+    --close-button-color: #f20030;
+    --address-bar-bg: #1e1e1e87;
+    --scroll-enable: aliceblue;
+    --cover-enable: aliceblue;
+}
+
+@font-face {
+    font-family: "sofia";
+    src: url(assets/Sofia\ Pro\ Regular\ Az.otf) format('opentype');
 }
 
 .folder, .files, .aud-info, .album-info, .btn>i, #path-panel .path_gui, #volume-pc, .mejs__controls .mejs__time, .mejs__controls span.mejs__duration{
@@ -1553,8 +1637,12 @@ document.querySelector("#result").addEventListener('scroll', ()=>{
     transition: 0.2s;
 }
 
-#wallpaper i, #auto-play, #drop-down, #panel button, .fa-backward, .fa-forward{
+#scroll_speed i, #cover_toggle i, #wallpaper i, #auto-play, #drop-down, #top_bar, #panel button{
     filter: var(--invert);
+}
+
+#scroll_speed i, #cover_toggle i, #wallpaper i, #auto-play, #panel button, #volume-pc i, #volume-pc input{
+    cursor: pointer;
 }
 
 
@@ -1572,25 +1660,18 @@ document.querySelector("#result").addEventListener('scroll', ()=>{
     z-index: 11;
 }
 
-@font-face {
-    font-family: "umeboshi";
-    src: url(assets/tahoma.ttf) format('truetype');
-    
-}
-
 body {
     background-image: url(assets/Images/AhriFy-bg-blur.jpg);
     background-size: cover;
     background-attachment: fixed;
     background-repeat: no-repeat;
     height: 100vh;
-    width: 100vw;
     margin: 0;
-    font-size: 18px;
+    font-size: 15px;
     overflow: hidden;
-    font-family: cursive;
-    letter-spacing: 1px;
-    user-select: none !important;
+    font-family: sofia;
+    letter-spacing: 0.5px;
+    user-select: none;
 }
 
 #waiting_loading {
@@ -1614,25 +1695,26 @@ body {
 }
 
 #result .files, #result .folder{
-    
-    padding: 10px;
+
+    padding: 8px;
     opacity: 0;
-    transition-property: opacity;
-    transition-duration: 0.25s;
+    transition-property: opacity, background-color;
+    transition-duration: 0.15s;
 }
 
 #play_list .files{
-    
-    padding: 10px;
+    border-radius: 5px;
+    padding: 8px;
     opacity: 1;
-    transition-property: opacity;
-    transition-duration: 0.25s;
+    transition-property: opacity, background-color;
+    transition-duration: 0.5s;
 }
 
 .files:hover, .folder:hover{
     background-color: rgba(5, 33, 56, 0.267);
+    border-radius: 5px;
 }
-
+	
 #panel {
     display: flex;
     width: 100vw;
@@ -1655,7 +1737,8 @@ body {
 #drop-down {
     position: absolute;
     height: var(--drop-down-height);
-    width: calc(100vw/2 - 50px);
+    width: calc(100vw/2 - 54px);
+    border-radius: 0 0 5px 5px;
     background-image: url(assets/Images/bloom2.jpg);
     background-size: cover;
     background-position: center;
@@ -1667,16 +1750,17 @@ body {
 }
 
 #path-panel .path_gui {
-    height: 50px;
+    height: inherit;
     width: fit-content;
     font-size: 14px;
-    
+
     display: flex;
     align-items: center;
+    transition: 0.1s;
 }
 
 #drop-down .path_gui {
-    height: 40px;
+    min-height: 30px;
     min-width: 200px;
     font-size: 14px;
     padding: 0px 10px 0px;
@@ -1684,6 +1768,7 @@ body {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
+    transition: 0.1s;
 }
 
 #path-panel .path_gui::after {
@@ -1696,20 +1781,22 @@ body {
 }
 
 .path_gui:hover {
-    background-color: #29292957;
+    background-color: #76767657;
 }
 
 #main {
     display: flex;
     flex-direction: column;
-    height: calc(100% - 50px);
-    border-style: groove;
+    height: calc(100% - 88px);
+    margin: 0 4px 4px 4px;
+    border-radius: 5px;
+    backdrop-filter: blur(1px);
+    /* border-style: groove;
     border-color: var(--border-color);
-    box-sizing: border-box;
+    box-sizing: border-box; */
     background: var(--frame--background);
     transition-property: background, border-color;
     transition-duration: 0.2s;
-    position: relative;
 }
 
 #result {
@@ -1728,8 +1815,7 @@ body {
 }
 
 #main_panel button {
-    width: 50px;
-    height: 50px;
+    height: 30px;
 }
 button {
     height: 80px;
@@ -1740,19 +1826,23 @@ button {
 }
 
 #sub_panel {
-    width: 50vw;
-    height: 100vh;
+    width: var(--main-width);
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
 }
+	
 #play_list {
-    height: 40%;
-    border-style: groove groove groove none;
+    height: calc(100% - 184px);
+    margin: 4px;
+    border-radius: 5px;
+    backdrop-filter: blur(1px);
+    /* border-style: groove groove groove none;
     border-color: var(--border-color);
+    box-sizing: border-box; */
     overflow: auto;
     background: var(--frame--background);
-    transition-property: background, border-color;
+    transition-property: background, border-color, height;
     transition-duration: 0.2s;
 }
 
@@ -1833,7 +1923,7 @@ button {
     animation: spin 10s linear infinite;
 }
 #auto-play {
-    font-family: cursive;
+    font-family: sofia;
     color: #aeaeae4d;
     position: absolute;
     font-size: 17px;
@@ -1894,7 +1984,7 @@ button {
 }
 
 #search_mode_content button{
-    font-family: cursive;
+    font-family: sofia;
     font-size: medium;
     background-color: #4646468f;
     border-radius: 5px;
@@ -1926,8 +2016,8 @@ button {
     touch-action: manipulation;
     white-space: nowrap;
     will-change: box-shadow,transform;
-    font-size: 18px;
-}    
+    font-size: 15px;
+}  
 #search_mode_content button:focus {
   box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
 }
@@ -1937,7 +2027,31 @@ button {
   transform: translateY(-2px);
 }
 
+#scroll_speed {
+    position: absolute;
+    top: 7px;
+    right: 80px;
+}
 
+#cover_toggle {
+    position: absolute;
+    top: 7px;
+    right: 55px;
+}
+
+#scroll_speed i{
+    color: var(--scroll-enable);
+    font-size: 13px;
+    transition: 0.2s;
+}
+
+#cover_toggle i {
+    color: var(--cover-enable);
+    font-size: 13px;
+    transition: 0.2s;
+}
+
+	
 #wallpaper_panel, #search_mode_panel {
     position: absolute;
     width: 70%;
@@ -1952,6 +2066,7 @@ button {
     border-radius: 3px;
     border-top: 30px solid rgba(26, 26, 26, 0.849);
     opacity: 0;
+    backdrop-filter: blur(2px);
     pointer-events: none;
     transition: 0.5s;
 }
@@ -2115,15 +2230,17 @@ i:hover ul {
 }
 
 .music-player {
-    position: relative;
-    width: 100%;
-    height: 150px;
-	border-style: none groove groove none;
-    border-color: var(--border-color);
-    backdrop-filter: blur(0px);
-    z-index: 1;
-    background: var(--frame--background);
-    transition-property: background, border-color;
+  display: block;
+  height: 150px;
+  margin: 10px 4px 10px 4px;
+  border-radius: 5px;
+  /* border-style: none groove groove none;
+  border-color: var(--border-color);
+  box-sizing: border-box; */
+  backdrop-filter: blur(2px);
+  z-index: 1;
+  background: var(--frame--background);
+  transition-property: background, border-color;
     transition-duration: 0.2s;
 }
 
@@ -2262,7 +2379,7 @@ background: transparent; /* Same color as background */
 }
 ::-webkit-scrollbar-thumb
 {
-background: rgb(11 33 52 / 52%);
+background: rgba(125, 125, 125, 0.50);
 border-radius: 10px;
 }
 
@@ -2316,10 +2433,6 @@ input[type="range"]::-webkit-slider-runnable-track  {
 
 
 @media screen and (max-width: 800px) {
-    #cursor {
-        display: none;
-    }
-
     body {
         font-size: 15px;
         overflow-x: hidden;
@@ -2330,11 +2443,14 @@ input[type="range"]::-webkit-slider-runnable-track  {
     #cover {
         height: 50%;
     }
+    #back_cover {
+        height: var(--cover-height);
+    }
     #front_cover {
-	width: 100%;
+        height: var(--cover-height);
     }
     #main {
-        height: calc(100% - 128px);
+        height: calc(100% - 62px);
     }
 
     #drop-down {
@@ -2344,11 +2460,8 @@ input[type="range"]::-webkit-slider-runnable-track  {
     .path_gui {
         font-size: 10px;
     }
-    #play_list {
-        border-style: groove groove groove groove;
-    }
+    
     #main_panel {
-	width: 100%;
         transition-property: margin-left;
         transition-duration: 0.5s;
     }
@@ -2358,29 +2471,30 @@ input[type="range"]::-webkit-slider-runnable-track  {
     #sub_panel {
         position: absolute;
         height: 100%;
-	width: 100%;
         margin-left: 100%;
         transition-property: margin-left;
         transition-duration: 0.5s;
     }
-    #auto-play {
-        left: 10px;
-    }
-    .music-player {
-        display: block;
-    }
+    
+    
     #mobile_sub_panel {
         display: flex !important;
-        position: absolute;
-        bottom: 0;
-        width: 100%;
+        
         height: 80px;
-	box-sizing: border-box;
-        border-style: groove;
+        /* border-style: groove;
         border-color: var(--border-color);
+        box-sizing: border-box; */
+        
+        margin: 8px 4px 10px 4px;
+        border-radius: 5px;
+        backdrop-filter: blur(1px);
+   
+        background: var(--frame--background);
         align-items: center;
-        transition-property: margin-left,background, border-color;
+        transition-property: margin-left, background, border-color;
         transition-duration: 0.5s;
+
+    
     }
     #mobile_sub_panel .spin-disc {
         width: 55px;
@@ -2394,9 +2508,6 @@ input[type="range"]::-webkit-slider-runnable-track  {
     }
     #mobile_sub_panel span {
         font-size: 13px;
-    }
-    #volume-changer{
-        display: none;
     }
 }
 </style>
