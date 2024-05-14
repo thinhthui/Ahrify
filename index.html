@@ -270,7 +270,7 @@ function set_width(){
         //$("#sub_panel").css('height', window.innerHeight-2+"px")
         $('#sub_panel').css('margin-left',`0`)
         $('#main_panel').css('margin-left',`0`)
-        $('#mobile_sub_panel').css('margin-left',`0`)
+        //$('#mobile_sub_panel').css('margin-left',`0`)
         root.style.setProperty('--path-width', (window.innerWidth/2 - 80)/6 + "px");
     }else{
         root.style.setProperty('--main-width', window.innerWidth + "px");
@@ -278,7 +278,7 @@ function set_width(){
         root.style.setProperty('--cover-height', document.querySelector('#cover').clientHeight + "px");
         $('#sub_panel').css('margin-left',`105%`)
         $('#main_panel').css('margin-left',`0`)
-        $('#mobile_sub_panel').css('margin-left',`0`)
+        //$('#mobile_sub_panel').css('margin-left',`0`)
         root.style.setProperty('--path-width', (window.innerWidth - 80)/6 + "px");
     }
     title_pos()
@@ -1787,7 +1787,7 @@ body {
 #main {
     display: flex;
     flex-direction: column;
-    height: calc(100% - 88px);
+    height: calc(100% - 68px);
     margin: 0 4px 4px 4px;
     border-radius: 5px;
     backdrop-filter: blur(1px);
