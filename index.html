@@ -649,7 +649,7 @@ function files_ob(arr){
         if (["m4a","mp3","flac","wav","ogg", "aiff"].includes(ext)) {
             $("#result").append(`<div class="files" onclick='play(`+i+`)'><i class="fa fa-file-audio-o" aria-hidden="true" style="margin-right: 10px;"></i>`+arr[i].n+`</div>`); 
         }
-        if (["jpg","png","jpeg","jfif","tiff","avif","gif"].includes(ext.toLowerCase())) {
+        if (["jpg","png","jpeg","jfif","tiff","avif","gif","webp"].includes(ext.toLowerCase())) {
             $("#result").append(`<div class="files" onclick='preview(`+i+`)'><i class="fa fa-picture-o" aria-hidden="true" style="margin-right: 10px;"></i>`+arr[i].n+`</div>`); 
         }  
     }
@@ -768,7 +768,7 @@ async function play(a){
 	for (var i = 0; i < files.length; i++){
         var name2 = files[i].n;
         var ext = name2.split(".")[name2.split(".").length - 1].trim()
-        if (["jpg","png","jpeg","jfif","tiff","avif","gif"].includes(ext.toLowerCase())){
+        if (["jpg","png","jpeg","jfif","tiff","avif","gif","webp"].includes(ext.toLowerCase())){
            cover = "https://server.ahrixthinh.net/" + last_dir + encodeURIComponent(name2);
            if (name2 !== null && name2.toLowerCase().trim().includes("cover")) break;
            if (name2 !== null && name2.toLowerCase().trim().includes("folder")) break;
@@ -900,7 +900,7 @@ async function play_mode(a){
 	for (var i = 0; i < temp_files.length; i++){
         var name2 = temp_files[i].n;
         var ext = name2.split(".")[name2.split(".").length - 1].trim()
-        if (["jpg","png","jpeg","jfif","tiff","avif","gif"].includes(ext.toLowerCase())){
+        if (["jpg","png","jpeg","jfif","tiff","avif","gif","webp"].includes(ext.toLowerCase())){
            cover = `https://server.ahrixthinh.net/${encodeURIComponent(song_list[a].folder).replace(/\%2F/g, "/")}/${encodeURIComponent(name2)}`;
            if (name2 !== null && name2.toLowerCase().trim().includes("cover")) break;
            if (name2 !== null && name2.toLowerCase().trim().includes("folder")) break;
