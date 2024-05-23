@@ -764,7 +764,8 @@ async function play(a){
 	
     var cover = "https://server.ahrixthinh.net/Photos/icon.jpg"
 	if (last_dir == `Music/Inspira/` || last_dir == `Music/Voiced%20Out/`)  cover = "https://server.ahrixthinh.net/"+last_dir+"cover/" + encodeURIComponent(acc) + ".png";
-    
+    	if (last_dir.includes(`Music/Soundtracks/Musedash`))  cover = "https://server.ahrixthinh.net/"+last_dir.replace("song/", "")+"cover/" + encodeURIComponent(acc) + ".png";
+	
 	for (var i = 0; i < files.length; i++){
         var name2 = files[i].n;
         var ext = name2.split(".")[name2.split(".").length - 1].trim()
@@ -827,6 +828,7 @@ async function play_temp(a){
 	
     var cover = cover_temp
     if (last_dir == `Music/Inspira/` || last_dir == `Music/Voiced%20Out/`)  cover = "https://server.ahrixthinh.net/"+last_dir+"cover/" + encodeURIComponent(acc) + ".png";
+    if (last_dir.includes(`Music/Soundtracks/Musedash`))  cover = "https://server.ahrixthinh.net/"+last_dir.replace("song/", "")+"cover/" + encodeURIComponent(acc) + ".png";
     
     
     await fetch(`https://ahrixthinh.net:4000`, {
@@ -896,7 +898,8 @@ async function play_mode(a){
     
     var cover = "https://server.ahrixthinh.net/Photos/icon.jpg"
 	if (song_list[a].folder == `Music/Inspira` || song_list[a].folder == `Music/Voiced Out`)  cover = "https://server.ahrixthinh.net/"+encodeURIComponent(song_list[a].folder).replace(/\%2F/g, "/") +"/cover/" + encodeURIComponent(acc) + ".png";
-    
+    	if (song_list[a].folder.includes(`Music/Soundtracks/Musedash`))  cover = "https://server.ahrixthinh.net/"+encodeURIComponent(song_list[a].folder).replace(/\%2F/g, "/").replace("song", "")+"/cover/" + encodeURIComponent(acc) + ".png";
+	
 	for (var i = 0; i < temp_files.length; i++){
         var name2 = temp_files[i].n;
         var ext = name2.split(".")[name2.split(".").length - 1].trim()
